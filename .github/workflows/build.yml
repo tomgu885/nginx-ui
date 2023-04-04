@@ -127,11 +127,6 @@ jobs:
                     path: frontend/dist
 
             -   name: Build
-                run: |
-                    mkdir -p dist
-                    go build -ldflags "$LD_FLAGS -X 'github.com/0xJacky/Nginx-UI/server/settings.buildTime=$(date +%s)'" -o dist/nginx-ui -v main.go
-
-            -   name: Build
                 uses: crazy-max/ghaction-xgo@v2
                 with:
                     xgo_version: latest
