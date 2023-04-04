@@ -130,7 +130,7 @@ jobs:
                 uses: crazy-max/ghaction-xgo@v2
                 with:
                     xgo_version: latest
-                    go_version: 1.20
+                    go_version: 1.20.0
                     dest: dist
                     prefix: nginx-ui
                     targets: ${{ env.GOOS }}/${{ env.ARCH_NAME }}$(if [[ "$GOARM" ]]; then echo "/v$GOARM"; fi)
