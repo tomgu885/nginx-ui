@@ -107,21 +107,6 @@ jobs:
             -   name: Checkout
                 uses: actions/checkout@v3
 
-            -   name: Set up Go
-                uses: actions/setup-go@v3
-                with:
-                    go-version: ^1.20.1
-
-            -   name: Set up cache
-                uses: actions/cache@v3
-                with:
-                    path: |
-                        ~/.cache/go-build
-                        ~/go/pkg/mod
-                    key: ${{ runner.os }}-${{ env.GOOS }}-${{ env.GOARCH }}${{ env.GOARM }}-go-${{ hashFiles('**/go.sum') }}
-                    restore-keys: |
-                        ${{ runner.os }}-${{ env.GOOS }}-${{ env.GOARCH }}${{ env.GOARM }}-go-
-
             -   name: Setup compiler environment
                 id: info
                 run: |
@@ -135,32 +120,6 @@ jobs:
                     echo "DIST=$_NAME" >> $GITHUB_ENV
                     echo "ARTIFACT=$_ARTIFACT" >> $GITHUB_ENV
 
-            -   name: Install musl cross compiler
-                if: env.GOOS == 'linux'
-                uses: 0xJacky/musl-cross-compilers@v0.6.5
-                id: musl
-                with:
-                    target: ${{ env.ARCH_NAME }}-linux-musl${{ env.ABI }}
-
-            -   name: Post install musl cross compiler
-                if: env.GOOS == 'linux'
-                run: |
-                    echo "PATH=${{ steps.musl.outputs.path }}:$PATH" >> $GITHUB_ENV
-                    echo "CC=${{ env.ARCH_NAME }}-linux-musl${{ env.ABI }}-gcc" >> $GITHUB_ENV
-                    echo "CXX=${{ env.ARCH_NAME }}-linux-musl${{ env.ABI }}-g++" >> $GITHUB_ENV
-                    echo "LD_FLAGS=--extldflags '-static'" >> $GITHUB_ENV
-
-            -   name: Install darwin cross compiler
-                if: env.GOOS == 'darwin'
-                run: |
-                    curl -L https://github.com/Hintay/crossosx/releases/latest/download/crossosx.tar.zst -o crossosx.tar.zst
-                    tar xvaf crossosx.tar.zst
-                    echo "LD_LIBRARY_PATH=$(pwd)/crossosx/lib/" >> $GITHUB_ENV
-                    echo "PATH=$(pwd)/crossosx/bin/:$PATH" >> $GITHUB_ENV
-                    echo "CC=${{ env.ARCH_NAME }}-clang" >> $GITHUB_ENV
-                    echo "CXX=${{ env.ARCH_NAME }}-clang++" >> $GITHUB_ENV
-                    echo "LD_FLAGS=-s -w" >> $GITHUB_ENV
-
             -   name: Download frontend artifacts
                 uses: actions/download-artifact@v3
                 with:
@@ -171,6 +130,21 @@ jobs:
                 run: |
                     mkdir -p dist
                     go build -ldflags "$LD_FLAGS -X 'github.com/0xJacky/Nginx-UI/server/settings.buildTime=$(date +%s)'" -o dist/nginx-ui -v main.go
+
+            -   name: Build
+                uses: crazy-max/ghaction-xgo@v2
+                with:
+                    xgo_version: latest
+                    go_version: 1.20
+                    dest: dist
+                    prefix: nginx-ui
+                    targets: ${{ env.$GOOS }}/${{ env.$ARCH_NAME }}$(if [[ "$GOARM" ]]; then echo "/v$GOARM"; fi)
+                    v: true
+                    x: true
+                    race: false
+                    ldflags: -s -w -X 'github.com/0xJacky/Nginx-UI/server/settings.buildTime=$(date +%s)'
+                    buildmode: default
+                    trimpath: true
 
             -   name: Archive backend artifacts
                 uses: actions/upload-artifact@v3
