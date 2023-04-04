@@ -149,7 +149,7 @@ jobs:
             -   name: Rename executable file
                 run: |
                     cd ./build || exit 1
-                    mv nginx-ui-$GOOS-$GOARCH* nginx-ui
+                    mv nginx-ui* nginx-ui
 
             -   name: Archive backend artifacts
                 uses: actions/upload-artifact@v3
