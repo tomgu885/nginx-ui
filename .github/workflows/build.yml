@@ -138,7 +138,7 @@ jobs:
                     go_version: 1.20
                     dest: dist
                     prefix: nginx-ui
-                    targets: ${{ env.$GOOS }}/${{ env.$ARCH_NAME }}$(if [[ "$GOARM" ]]; then echo "/v$GOARM"; fi)
+                    targets: ${{ env.GOOS }}/${{ env.ARCH_NAME }}$(if [[ "$GOARM" ]]; then echo "/v$GOARM"; fi)
                     v: true
                     x: true
                     race: false
