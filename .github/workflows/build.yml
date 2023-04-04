@@ -89,36 +89,38 @@ jobs:
                 include:
                     # BEGIN Linux ARM 5 6 7
                     -   goos: linux
-                        goarch: arm
-                        goarm: 7
+                        goarch: arm-7
                     -   goos: linux
-                        goarch: arm
-                        goarm: 6
+                        goarch: arm-6
                     -   goos: linux
-                        goarch: arm
-                        goarm: 5
+                        goarch: arm-5
                     # END Linux ARM 5 6 7
+                    # BEGIN Other architectures
+                    -   goos: darwin
+                        goarch: arm64
+                    -   goos: linux
+                        goarch: arm64
+                    # BEGIN MIPS
+                    -   goos: linux
+                        goarch: mips64
+                    -   goos: linux
+                        goarch: mips64le
+                    -   goos: linux
+                        goarch: mipsle
+                    -   goos: linux
+                        goarch: mips
+                    # END MIPS
         env:
-            CGO_ENABLED: 1
             GOOS: ${{ matrix.goos }}
             GOARCH: ${{ matrix.goarch }}
-            GOARM: ${{ matrix.goarm }}
         steps:
             -   name: Checkout
                 uses: actions/checkout@v3
 
-            -   name: Setup compiler environment
-                id: info
+            -   name: Show workflow information
                 run: |
-                    export _NAME=nginx-ui-$(jq ".$GOOS[\"$GOARCH$GOARM\"].name" -r < .github/build/build_info.json)
-                    export _ARCH=$(jq ".$GOOS[\"$GOARCH$GOARM\"].arch" -r < .github/build/build_info.json)
-                    export _ABI=$(jq ".$GOOS[\"$GOARCH$GOARM\"].abi // \"\"" -r < .github/build/build_info.json)
-                    export _ARTIFACT=nginx-ui-$GOOS-$GOARCH$(if [[ "$GOARM" ]]; then echo "v$GOARM"; fi)
-                    echo "GOOS: $GOOS, GOARCH: $GOARCH, GOARM: $GOARM, ABI: $_ABI, RELEASE_NAME: $_NAME, ARTIFACT_NAME: $_ARTIFACT"
-                    echo "ARCH_NAME=$_ARCH" >> $GITHUB_ENV
-                    echo "ABI=$_ABI" >> $GITHUB_ENV
-                    echo "DIST=$_NAME" >> $GITHUB_ENV
-                    echo "ARTIFACT=$_ARTIFACT" >> $GITHUB_ENV
+                    echo "GOOS: $GOOS, GOARCH: $GOARCH"
+                    echo "BUILD_TIME=$(date +%FT%T%z)" >> $GITHUB_ENV
 
             -   name: Download frontend artifacts
                 uses: actions/download-artifact@v3
@@ -133,13 +135,18 @@ jobs:
                     go_version: 1.20.0
                     dest: dist
                     prefix: nginx-ui
-                    targets: ${{ env.GOOS }}/${{ env.ARCH_NAME }}$(if [[ "$GOARM" ]]; then echo "/v$GOARM"; fi)
+                    targets: ${{ matrix.goos }}/${{ matrix.goarch }}
                     v: true
                     x: true
                     race: false
                     ldflags: -s -w -X 'github.com/0xJacky/Nginx-UI/server/settings.buildTime=$(date +%s)'
                     buildmode: default
                     trimpath: true
+
+            -   name: Rename executable file
+                run: |
+                    cd ./dist || exit 1
+                    mv nginx-ui-$GOOS-$GOARCH* nginx-ui
 
             -   name: Archive backend artifacts
                 uses: actions/upload-artifact@v3
