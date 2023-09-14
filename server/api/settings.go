@@ -1,9 +1,9 @@
 package api
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/settings"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"nginx-ui/server/settings"
 )
 
 func GetSettings(c *gin.Context) {

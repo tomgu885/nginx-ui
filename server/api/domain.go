@@ -1,16 +1,16 @@
 package api
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/cert"
-	"github.com/0xJacky/Nginx-UI/server/internal/config_list"
-	"github.com/0xJacky/Nginx-UI/server/internal/helper"
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
-	"github.com/0xJacky/Nginx-UI/server/internal/nginx"
-	"github.com/0xJacky/Nginx-UI/server/model"
-	"github.com/0xJacky/Nginx-UI/server/query"
 	"github.com/gin-gonic/gin"
 	"github.com/sashabaranov/go-openai"
 	"net/http"
+	"nginx-ui/server/internal/cert"
+	"nginx-ui/server/internal/config_list"
+	"nginx-ui/server/internal/helper"
+	"nginx-ui/server/internal/logger"
+	"nginx-ui/server/internal/nginx"
+	"nginx-ui/server/model"
+	"nginx-ui/server/query"
 	"os"
 	"strings"
 	"time"

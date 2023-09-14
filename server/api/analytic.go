@@ -2,14 +2,14 @@ package api
 
 import (
 	"fmt"
-	"github.com/0xJacky/Nginx-UI/server/internal/analytic"
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/host"
 	"github.com/shirou/gopsutil/v3/load"
 	"github.com/shirou/gopsutil/v3/net"
 	"github.com/spf13/cast"
 	"net/http"
+	"nginx-ui/server/internal/analytic"
+	"nginx-ui/server/internal/logger"
 	"runtime"
 	"time"
 

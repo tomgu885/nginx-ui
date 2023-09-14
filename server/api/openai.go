@@ -3,15 +3,15 @@ package api
 import (
 	"context"
 	"fmt"
-	"github.com/0xJacky/Nginx-UI/server/model"
-	"github.com/0xJacky/Nginx-UI/server/query"
-	"github.com/0xJacky/Nginx-UI/server/settings"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 	"github.com/sashabaranov/go-openai"
 	"io"
 	"net/http"
 	"net/url"
+	"nginx-ui/server/model"
+	"nginx-ui/server/query"
+	"nginx-ui/server/settings"
 	"os"
 )
 

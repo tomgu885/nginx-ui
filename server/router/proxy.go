@@ -2,13 +2,13 @@ package router
 
 import (
 	"crypto/tls"
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
-	"github.com/0xJacky/Nginx-UI/server/query"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cast"
 	"io"
 	"net/http"
 	"net/url"
+	"nginx-ui/server/internal/logger"
+	"nginx-ui/server/query"
 )
 
 func proxy() gin.HandlerFunc {

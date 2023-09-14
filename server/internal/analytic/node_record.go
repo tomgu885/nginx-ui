@@ -3,11 +3,11 @@ package analytic
 import (
 	"context"
 	"encoding/json"
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
-	"github.com/0xJacky/Nginx-UI/server/model"
-	"github.com/0xJacky/Nginx-UI/server/query"
 	"github.com/gorilla/websocket"
 	"net/http"
+	"nginx-ui/server/internal/logger"
+	"nginx-ui/server/model"
+	"nginx-ui/server/query"
 	"time"
 )
 

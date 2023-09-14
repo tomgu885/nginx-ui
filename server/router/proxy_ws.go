@@ -1,12 +1,12 @@
 package router
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
-	"github.com/0xJacky/Nginx-UI/server/query"
 	"github.com/gin-gonic/gin"
 	"github.com/pretty66/websocketproxy"
 	"github.com/spf13/cast"
 	"net/http"
+	"nginx-ui/server/internal/logger"
+	"nginx-ui/server/query"
 )
 
 func proxyWs() gin.HandlerFunc {

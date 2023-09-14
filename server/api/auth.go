@@ -1,10 +1,10 @@
 package api
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/model"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
+	"nginx-ui/server/model"
 )
 
 type LoginUser struct {

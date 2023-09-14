@@ -1,10 +1,10 @@
 package logger
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/settings"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+	"nginx-ui/server/settings"
 	"os"
 )
 

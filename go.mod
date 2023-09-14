@@ -1,4 +1,4 @@
-module github.com/0xJacky/Nginx-UI
+module nginx-ui
 
 go 1.21
 

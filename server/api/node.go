@@ -1,13 +1,13 @@
 package api
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/analytic"
-	"github.com/0xJacky/Nginx-UI/server/internal/upgrader"
 	"github.com/dustin/go-humanize"
 	"github.com/gin-gonic/gin"
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/disk"
 	"net/http"
+	"nginx-ui/server/internal/analytic"
+	"nginx-ui/server/internal/upgrader"
 )
 
 func GetCurrentNode(c *gin.Context) {

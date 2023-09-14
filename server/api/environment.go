@@ -1,13 +1,13 @@
 package api
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/analytic"
-	"github.com/0xJacky/Nginx-UI/server/internal/environment"
-	"github.com/0xJacky/Nginx-UI/server/model"
-	"github.com/0xJacky/Nginx-UI/server/query"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cast"
 	"net/http"
+	"nginx-ui/server/internal/analytic"
+	"nginx-ui/server/internal/environment"
+	"nginx-ui/server/model"
+	"nginx-ui/server/query"
 	"regexp"
 )
 

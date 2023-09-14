@@ -1,12 +1,12 @@
 package api
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
-	"github.com/0xJacky/Nginx-UI/server/internal/upgrader"
-	"github.com/0xJacky/Nginx-UI/server/settings"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"net/http"
+	"nginx-ui/server/internal/logger"
+	"nginx-ui/server/internal/upgrader"
+	"nginx-ui/server/settings"
 	"os"
 )
 

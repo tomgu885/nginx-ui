@@ -2,10 +2,10 @@ package translation
 
 import (
 	"fmt"
-	"github.com/0xJacky/Nginx-UI/frontend"
 	"github.com/0xJacky/pofile/pofile"
 	"io"
 	"log"
+	"nginx-ui/frontend"
 )
 
 var Dict map[string]pofile.Dict

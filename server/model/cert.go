@@ -1,8 +1,8 @@
 package model
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/nginx"
 	"github.com/lib/pq"
+	"nginx-ui/server/internal/nginx"
 	"os"
 )
 

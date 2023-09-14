@@ -2,10 +2,6 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/0xJacky/Nginx-UI/server/internal/helper"
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
-	"github.com/0xJacky/Nginx-UI/server/internal/nginx"
-	"github.com/0xJacky/Nginx-UI/server/settings"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"github.com/hpcloud/tail"
@@ -13,6 +9,10 @@ import (
 	"github.com/spf13/cast"
 	"io"
 	"net/http"
+	"nginx-ui/server/internal/helper"
+	"nginx-ui/server/internal/logger"
+	"nginx-ui/server/internal/nginx"
+	"nginx-ui/server/settings"
 	"os"
 )
 

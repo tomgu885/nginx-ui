@@ -3,14 +3,14 @@ package analytic
 import (
 	"crypto/tls"
 	"encoding/json"
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
-	"github.com/0xJacky/Nginx-UI/server/internal/upgrader"
-	"github.com/0xJacky/Nginx-UI/server/model"
 	"github.com/shirou/gopsutil/v3/load"
 	"github.com/shirou/gopsutil/v3/net"
 	"io"
 	"net/http"
 	"net/url"
+	"nginx-ui/server/internal/logger"
+	"nginx-ui/server/internal/upgrader"
+	"nginx-ui/server/model"
 	"sync"
 	"time"
 )

@@ -1,14 +1,14 @@
 package api
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/boot"
-	"github.com/0xJacky/Nginx-UI/server/model"
-	"github.com/0xJacky/Nginx-UI/server/query"
-	"github.com/0xJacky/Nginx-UI/server/settings"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
+	"nginx-ui/server/internal/boot"
+	"nginx-ui/server/model"
+	"nginx-ui/server/query"
+	"nginx-ui/server/settings"
 )
 
 func installLockStatus() bool {

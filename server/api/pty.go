@@ -1,11 +1,11 @@
 package api
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
-	"github.com/0xJacky/Nginx-UI/server/internal/pty"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"net/http"
+	"nginx-ui/server/internal/logger"
+	"nginx-ui/server/internal/pty"
 )
 
 func Pty(c *gin.Context) {

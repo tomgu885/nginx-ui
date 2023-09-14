@@ -1,15 +1,15 @@
 package api
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/cert"
-	"github.com/0xJacky/Nginx-UI/server/internal/cert/dns"
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
-	"github.com/0xJacky/Nginx-UI/server/internal/nginx"
-	"github.com/0xJacky/Nginx-UI/server/model"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"github.com/spf13/cast"
 	"net/http"
+	"nginx-ui/server/internal/cert"
+	"nginx-ui/server/internal/cert/dns"
+	"nginx-ui/server/internal/logger"
+	"nginx-ui/server/internal/nginx"
+	"nginx-ui/server/model"
 	"os"
 	"path/filepath"
 	"strings"

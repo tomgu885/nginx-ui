@@ -1,15 +1,15 @@
 package boot
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/analytic"
-	"github.com/0xJacky/Nginx-UI/server/internal/cert"
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
-	"github.com/0xJacky/Nginx-UI/server/model"
-	"github.com/0xJacky/Nginx-UI/server/query"
-	"github.com/0xJacky/Nginx-UI/server/settings"
 	"github.com/go-co-op/gocron"
 	"github.com/google/uuid"
 	"mime"
+	"nginx-ui/server/internal/analytic"
+	"nginx-ui/server/internal/cert"
+	"nginx-ui/server/internal/logger"
+	"nginx-ui/server/model"
+	"nginx-ui/server/query"
+	"nginx-ui/server/settings"
 	"runtime"
 	"time"
 )

@@ -1,8 +1,8 @@
 package environment
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/analytic"
-	"github.com/0xJacky/Nginx-UI/server/query"
+	"nginx-ui/server/internal/analytic"
+	"nginx-ui/server/query"
 )
 
 func RetrieveEnvironmentList() (envs []*analytic.Node, err error) {

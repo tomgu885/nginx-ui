@@ -17,7 +17,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/0xJacky/Nginx-UI/server/model"
+	"nginx-ui/server/model"
 )
 
 func newCert(db *gorm.DB, opts ...gen.DOOption) cert {

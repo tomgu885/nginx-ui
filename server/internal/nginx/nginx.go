@@ -1,8 +1,8 @@
 package nginx
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
-	"github.com/0xJacky/Nginx-UI/server/settings"
+	"nginx-ui/server/internal/logger"
+	"nginx-ui/server/settings"
 	"os/exec"
 	"path/filepath"
 	"regexp"

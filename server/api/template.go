@@ -1,10 +1,10 @@
 package api
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/nginx"
-	"github.com/0xJacky/Nginx-UI/server/internal/template"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"nginx-ui/server/internal/nginx"
+	"nginx-ui/server/internal/template"
 )
 
 func GetTemplate(c *gin.Context) {

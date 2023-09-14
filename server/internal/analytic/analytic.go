@@ -1,8 +1,8 @@
 package analytic
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
 	"github.com/shirou/gopsutil/v3/net"
+	"nginx-ui/server/internal/logger"
 	"time"
 )
 

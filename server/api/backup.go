@@ -1,10 +1,10 @@
 package api
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/model"
 	"github.com/gin-gonic/gin"
 	"github.com/unknwon/com"
 	"net/http"
+	"nginx-ui/server/model"
 )
 
 func GetFileBackupList(c *gin.Context) {

@@ -1,10 +1,10 @@
 package router
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/api"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"nginx-ui/server/api"
 )
 
 func InitRouter() *gin.Engine {

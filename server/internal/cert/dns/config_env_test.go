@@ -1,9 +1,9 @@
 package dns
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/cert/config"
 	"github.com/BurntSushi/toml"
 	"log"
+	"nginx-ui/server/internal/cert/config"
 	"path/filepath"
 	"testing"
 )

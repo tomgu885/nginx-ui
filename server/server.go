@@ -1,32 +1,32 @@
 package server
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/boot"
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
-	"github.com/0xJacky/Nginx-UI/server/internal/nginx"
-	"github.com/0xJacky/Nginx-UI/server/internal/upgrader"
-	"github.com/0xJacky/Nginx-UI/server/router"
-	"github.com/jpillora/overseer"
-	"net/http"
+    "github.com/jpillora/overseer"
+    "net/http"
+    "nginx-ui/server/internal/boot"
+    "nginx-ui/server/internal/logger"
+    "nginx-ui/server/internal/nginx"
+    "nginx-ui/server/internal/upgrader"
+    "nginx-ui/server/router"
 )
 
 func GetRuntimeInfo() (r upgrader.RuntimeInfo, err error) {
-	return upgrader.GetRuntimeInfo()
+    return upgrader.GetRuntimeInfo()
 }
 
 func Program(state overseer.State) {
-	defer logger.Sync()
+    defer logger.Sync()
 
-	logger.Info("Nginx config dir path: " + nginx.GetConfPath())
+    logger.Info("Nginx config dir path: " + nginx.GetConfPath())
 
-	boot.Kernel()
+    boot.Kernel()
 
-	if state.Listener != nil {
-		err := http.Serve(state.Listener, router.InitRouter())
-		if err != nil {
-			logger.Error(err)
-		}
-	}
+    if state.Listener != nil {
+        err := http.Serve(state.Listener, router.InitRouter())
+        if err != nil {
+            logger.Error(err)
+        }
+    }
 
-	logger.Info("Server exiting")
+    logger.Info("Server exiting")
 }

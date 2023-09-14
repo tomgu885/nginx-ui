@@ -3,10 +3,10 @@ package test
 import (
 	"context"
 	"fmt"
-	"github.com/0xJacky/Nginx-UI/server/settings"
 	"github.com/pkg/errors"
 	"github.com/sashabaranov/go-openai"
 	"io"
+	"nginx-ui/server/settings"
 	"os"
 	"testing"
 )

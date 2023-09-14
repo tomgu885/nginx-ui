@@ -2,9 +2,9 @@ package cert
 
 import (
 	"fmt"
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
-	"github.com/0xJacky/Nginx-UI/server/model"
 	"github.com/pkg/errors"
+	"nginx-ui/server/internal/logger"
+	"nginx-ui/server/model"
 	"time"
 )
 

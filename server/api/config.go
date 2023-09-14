@@ -1,13 +1,13 @@
 package api
 
 import (
-	"github.com/0xJacky/Nginx-UI/server/internal/config_list"
-	"github.com/0xJacky/Nginx-UI/server/internal/logger"
-	"github.com/0xJacky/Nginx-UI/server/internal/nginx"
-	"github.com/0xJacky/Nginx-UI/server/query"
 	"github.com/gin-gonic/gin"
 	"github.com/sashabaranov/go-openai"
 	"net/http"
+	"nginx-ui/server/internal/config_list"
+	"nginx-ui/server/internal/logger"
+	"nginx-ui/server/internal/nginx"
+	"nginx-ui/server/query"
 	"os"
 )
 

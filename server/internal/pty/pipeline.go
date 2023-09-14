@@ -2,10 +2,10 @@ package pty
 
 import (
 	"encoding/json"
-	"github.com/0xJacky/Nginx-UI/server/settings"
 	"github.com/creack/pty"
 	"github.com/gorilla/websocket"
 	"github.com/pkg/errors"
+	"nginx-ui/server/settings"
 	"os"
 	"os/exec"
 	"time"
