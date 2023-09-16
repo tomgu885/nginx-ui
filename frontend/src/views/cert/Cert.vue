@@ -34,7 +34,7 @@ const columns = [{
     sorter: true,
     pithy: true
 }, {
-    title: () => $gettext('Auto Cert'),
+    title: () => $gettext('自动证书'),
     dataIndex: 'auto_cert',
     customRender: (args: customRender) => {
         const template: any = []
