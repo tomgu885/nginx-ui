@@ -28,6 +28,11 @@ jwt: Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJ
 2. POST / 29
 3. DELETE / 11
 
+## ssl 证书路径
+
+ssl_certificate /etc/nginx/ssl/ip-limit.cloudfy669.xyz/fullchain.cer;
+ssl_certificate_key /etc/nginx/ssl/ip-limit.cloudfy669.xyz/private.key;
+
 ## 数据库-表
 
 sqlite3
