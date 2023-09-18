@@ -47,6 +47,10 @@ type OpenAI struct {
 	Model   string `json:"model"`
 }
 
+type Database struct {
+	Dsn string `json:"dsn"`
+}
+
 var ServerSettings = Server{
 	HttpHost:          "0.0.0.0",
 	HttpPort:          "9000",
@@ -66,10 +70,13 @@ var NginxSettings = Nginx{
 }
 
 var OpenAISettings = OpenAI{}
-
+var DbSettings = Database{
+	Dsn: "default",
+}
 var ConfPath string
 
-var sections = map[string]interface{}{
+var sections = map[string]any{
+	"db":     &DbSettings,
 	"server": &ServerSettings,
 	"nginx":  &NginxSettings,
 	"openai": &OpenAISettings,
@@ -106,7 +113,7 @@ func ReflectFrom() {
 	}
 }
 
-func mapTo(section string, v interface{}) {
+func mapTo(section string, v any) {
 	err := Conf.Section(section).MapTo(v)
 	if err != nil {
 		log.Fatalf("Cfg.MapTo %s err: %v", section, err)

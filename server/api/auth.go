@@ -21,14 +21,14 @@ func Login(c *gin.Context) {
 
 	u, _ := model.GetUser(user.Name)
 
-	if err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(user.Password)); err != nil {
+	if err := bcrypt.CompareHashAndPassword([]byte(u.EncryptedPassword), []byte(user.Password)); err != nil {
 		c.JSON(http.StatusForbidden, gin.H{
 			"message": "The username or password is incorrect",
 		})
 		return
 	}
 
-	token, err := model.GenerateJWT(u.Name)
+	token, err := model.GenerateJWT(u.Username)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": err.Error(),

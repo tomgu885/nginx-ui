@@ -167,10 +167,6 @@ func (c chatGPTLogDo) Where(conds ...gen.Condition) *chatGPTLogDo {
 	return c.withDO(c.DO.Where(conds...))
 }
 
-func (c chatGPTLogDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) *chatGPTLogDo {
-	return c.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
-}
-
 func (c chatGPTLogDo) Order(conds ...field.Expr) *chatGPTLogDo {
 	return c.withDO(c.DO.Order(conds...))
 }

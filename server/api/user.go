@@ -53,8 +53,8 @@ func AddUser(c *gin.Context) {
 	json.Password = string(pwd)
 
 	user := model.Auth{
-		Name:     json.Name,
-		Password: json.Password,
+		Username:          json.Name,
+		EncryptedPassword: json.Password,
 	}
 
 	err = u.Create(&user)
@@ -92,7 +92,7 @@ func EditUser(c *gin.Context) {
 		return
 	}
 	edit := &model.Auth{
-		Name: json.Name,
+		Username: json.Name,
 	}
 
 	// encrypt password
@@ -103,7 +103,7 @@ func EditUser(c *gin.Context) {
 			ErrHandler(c, err)
 			return
 		}
-		edit.Password = string(pwd)
+		edit.EncryptedPassword = string(pwd)
 	}
 
 	_, err = u.Where(u.ID.Eq(userId)).Updates(&edit)

@@ -183,10 +183,6 @@ func (s siteDo) Where(conds ...gen.Condition) *siteDo {
 	return s.withDO(s.DO.Where(conds...))
 }
 
-func (s siteDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) *siteDo {
-	return s.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
-}
-
 func (s siteDo) Order(conds ...field.Expr) *siteDo {
 	return s.withDO(s.DO.Order(conds...))
 }

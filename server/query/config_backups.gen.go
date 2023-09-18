@@ -187,10 +187,6 @@ func (c configBackupDo) Where(conds ...gen.Condition) *configBackupDo {
 	return c.withDO(c.DO.Where(conds...))
 }
 
-func (c configBackupDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) *configBackupDo {
-	return c.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
-}
-
 func (c configBackupDo) Order(conds ...field.Expr) *configBackupDo {
 	return c.withDO(c.DO.Order(conds...))
 }

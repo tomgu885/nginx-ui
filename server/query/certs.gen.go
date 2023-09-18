@@ -289,10 +289,6 @@ func (c certDo) Where(conds ...gen.Condition) *certDo {
 	return c.withDO(c.DO.Where(conds...))
 }
 
-func (c certDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) *certDo {
-	return c.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
-}
-
 func (c certDo) Order(conds ...field.Expr) *certDo {
 	return c.withDO(c.DO.Order(conds...))
 }

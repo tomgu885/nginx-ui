@@ -187,10 +187,6 @@ func (d dnsCredentialDo) Where(conds ...gen.Condition) *dnsCredentialDo {
 	return d.withDO(d.DO.Where(conds...))
 }
 
-func (d dnsCredentialDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) *dnsCredentialDo {
-	return d.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
-}
-
 func (d dnsCredentialDo) Order(conds ...field.Expr) *dnsCredentialDo {
 	return d.withDO(d.DO.Order(conds...))
 }

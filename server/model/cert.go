@@ -4,6 +4,7 @@ import (
 	"github.com/lib/pq"
 	"nginx-ui/server/internal/nginx"
 	"os"
+	"time"
 )
 
 const (
@@ -49,7 +50,8 @@ func GetAutoCertList() (c []*Cert) {
 	if db == nil {
 		return
 	}
-	db.Where("auto_cert", AutoCertEnabled).Find(&t)
+	// 30 天
+	db.Where("expired_at <= ?", time.Now().Unix()-86400*30).Find(&t)
 
 	// check if this domain is enabled
 	enabledConfig, err := os.ReadDir(nginx.GetConfPath("sites-enabled"))

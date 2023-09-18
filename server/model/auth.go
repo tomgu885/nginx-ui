@@ -10,8 +10,8 @@ import (
 type Auth struct {
 	Model
 
-	Name     string `json:"name"`
-	Password string `json:"-"`
+	Username          string `json:"name" gorm:"column:username;length:100"`
+	EncryptedPassword string `json:"-"`
 }
 
 type AuthToken struct {
@@ -24,7 +24,7 @@ type JWTClaims struct {
 }
 
 func GetUser(name string) (user Auth, err error) {
-	err = db.Where("name = ?", name).First(&user).Error
+	err = db.Where("username = ?", name).First(&user).Error
 	if err != nil {
 		return Auth{}, err
 	}

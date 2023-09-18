@@ -4,23 +4,22 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cast"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/mysql"
 	"gorm.io/gen"
 	"gorm.io/gorm"
 	gormlogger "gorm.io/gorm/logger"
 	"nginx-ui/server/internal/logger"
+	"nginx-ui/server/model/soft_delete"
 	"nginx-ui/server/settings"
-	"path"
-	"time"
 )
 
 var db *gorm.DB
 
 type Model struct {
-	ID        int             `gorm:"primary_key" json:"id"`
-	CreatedAt time.Time       `json:"created_at"`
-	UpdatedAt time.Time       `json:"updated_at"`
-	DeletedAt *gorm.DeletedAt `gorm:"index" json:"deleted_at"`
+	ID        int                    `gorm:"primary_key" json:"id"`
+	CreatedAt int64                  `json:"created_at" gorm:"autoCreateTime"`
+	UpdatedAt int64                  `json:"updated_at" gorm:"autoUpdateTime"`
+	DeletedAt *soft_delete.DeletedAt `gorm:"index" json:"deleted_at"`
 }
 
 func GenerateAllModel() []any {
@@ -48,25 +47,36 @@ func logMode() gormlogger.Interface {
 }
 
 func Init() *gorm.DB {
-	dbPath := path.Join(path.Dir(settings.ConfPath), fmt.Sprintf("%s.db", settings.ServerSettings.Database))
-
+	//dbPath := path.Join(path.Dir(settings.ConfPath), fmt.Sprintf("%s.db", settings.ServerSettings.Database))
+	//
+	//var err error
+	//db, err = gorm.Open(sqlite.Open(dbPath), &gorm.Config{
+	//	Logger:                                   logMode(),
+	//	PrepareStmt:                              true,
+	//	DisableForeignKeyConstraintWhenMigrating: true,
+	//})
+	//  dsn := "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
+	//  db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	dsn := settings.DbSettings.Dsn
+	fmt.Println("DbSettings:", settings.DbSettings)
+	fmt.Println("dsn:", dsn)
+	dbConfig := &gorm.Config{}
 	var err error
-	db, err = gorm.Open(sqlite.Open(dbPath), &gorm.Config{
-		Logger:                                   logMode(),
-		PrepareStmt:                              true,
-		DisableForeignKeyConstraintWhenMigrating: true,
-	})
-
+	db, err = gorm.Open(mysql.Open(dsn), dbConfig)
 	if err != nil {
 		logger.Fatal(err.Error())
 	}
 
 	// Migrate the schema
-	err = db.AutoMigrate(GenerateAllModel()...)
-	if err != nil {
-		logger.Fatal(err.Error())
-	}
+	//err = db.AutoMigrate(GenerateAllModel()...)
+	//if err != nil {
+	//	logger.Fatal(err.Error())
+	//}
 
+	return db
+}
+
+func GetDb() *gorm.DB {
 	return db
 }
 

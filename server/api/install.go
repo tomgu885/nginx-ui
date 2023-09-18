@@ -63,8 +63,8 @@ func InstallNginxUI(c *gin.Context) {
 
 	u := query.Auth
 	err = u.Create(&model.Auth{
-		Name:     json.Username,
-		Password: string(pwd),
+		Username:          json.Username,
+		EncryptedPassword: string(pwd),
 	})
 
 	if err != nil {

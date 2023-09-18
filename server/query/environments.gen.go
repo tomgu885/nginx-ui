@@ -195,10 +195,6 @@ func (e environmentDo) Where(conds ...gen.Condition) *environmentDo {
 	return e.withDO(e.DO.Where(conds...))
 }
 
-func (e environmentDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) *environmentDo {
-	return e.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
-}
-
 func (e environmentDo) Order(conds ...field.Expr) *environmentDo {
 	return e.withDO(e.DO.Order(conds...))
 }
