@@ -45,16 +45,28 @@ INSERT INTO auths (username, encrypted_password) values ('admin','$2a$12$o9/W9tg
 -- CREATE TABLE `sites` (
  -- `id` integer,`created_at` datetime,`updated_at` datetime,`deleted_at` datetime,
 -- `path` text,`advanced` numeric,PRIMARY KEY (`id`));
+drop table if exists sites;
 create table sites (
     id int unsigned auto_increment primary key ,
     name varchar(200) not null default '' comment '',
-    domains json comment '[]string',
+    domains text comment '[]string, 逗号隔开',
+    domain_count smallint unsigned default '0',
     state tinyint not null default '0' comment '1: 启用, 2:禁用',
+    ssl_enable tinyint not null default '0' comment 'ssl是否启用 1:启用, 2:禁用',
+    ssl_cert_state tinyint not null default '0' comment 'ssl 证书 状态 1: 申请开始, 2: 已完成',
+    http_ports varchar(300) not null default '' comment 'http端口',
+    hsts_enable tinyint not null default '0' comment '1:启用, 2:禁用',
+    https_ports varchar(300) not null default '' comment 'http',
+    upstream_port_policy tinyint not null default '0' comment '1:同端口协议, 2: 回落到 80',
+    upstream_rotate_policy tinyint not null default '0' comment '1: 轮询(robin round, 2: ip hash',
+    upstream_ips varchar(100) not null default '' comment '上游ip,多个以逗号分隔,会轮询',
+    upstream_host varchar(100) not null default '' comment '是否',
     created_at int unsigned not null default '0',
     updated_at int unsigned not null default '0',
     deleted_at int unsigned not null default '0' comment '删除标记',
     index(name),
-    index(created_at)
+    index(created_at),
+    index(deleted_at)
 ) engine=innoDB default charset=utf8mb4 comment '域名';
 -- CREATE INDEX `idx_sites_deleted_at` ON `sites`(`deleted_at`);
 

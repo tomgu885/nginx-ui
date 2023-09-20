@@ -8,9 +8,17 @@ import (
 	"gorm.io/gen"
 	"gorm.io/gorm"
 	gormlogger "gorm.io/gorm/logger"
+	"log"
 	"nginx-ui/server/internal/logger"
 	"nginx-ui/server/model/soft_delete"
 	"nginx-ui/server/settings"
+	"os"
+	"time"
+)
+
+const (
+	StateEnable   = 1
+	StateDisabled = 2
 )
 
 var db *gorm.DB
@@ -60,7 +68,13 @@ func Init() *gorm.DB {
 	dsn := settings.DbSettings.Dsn
 	fmt.Println("DbSettings:", settings.DbSettings)
 	fmt.Println("dsn:", dsn)
+	_default := gormlogger.New(log.New(os.Stdout, "\r\n", log.LstdFlags), gormlogger.Config{
+		SlowThreshold: 200 * time.Millisecond,
+		LogLevel:      gormlogger.Info,
+		Colorful:      true,
+	})
 	dbConfig := &gorm.Config{}
+	dbConfig.Logger = _default
 	var err error
 	db, err = gorm.Open(mysql.Open(dsn), dbConfig)
 	if err != nil {

@@ -56,11 +56,11 @@ func InitRouter() *gin.Engine {
 			g.POST("user/:id", api.EditUser)
 			g.DELETE("user/:id", api.DeleteUser)
 
-			g.GET("domains", api.GetDomains)
-			g.GET("domain/:name", api.GetDomain)
+			//g.GET("domains", api.GetDomains)
+			//g.GET("domain/:name", api.GetDomain)
 
 			// Modify site configuration directly
-			g.POST("domain/:name", api.SaveDomain)
+			//g.POST("domain/:name", api.SaveDomain)
 
 			// Transform NgxConf to nginx configuration
 			g.POST("ngx/build_config", api.BuildNginxConfig)
@@ -74,15 +74,16 @@ func InitRouter() *gin.Engine {
 			g.POST("nginx/test", api.TestNginx)
 			g.GET("nginx/status", api.NginxStatus)
 
-			g.POST("domain/:name/enable", api.EnableDomain)
-			g.POST("domain/:name/disable", api.DisableDomain)
-			g.POST("domain/:name/advance", api.DomainEditByAdvancedMode)
+			//g.POST("domain/:name/enable", api.EnableDomain)
+			//g.POST("domain/:name/disable", api.DisableDomain)
+			//g.POST("domain/:name/advance", api.DomainEditByAdvancedMode)
 
-			g.DELETE("domain/:name", api.DeleteDomain)
+			//g.DELETE("domain/:name", api.DeleteDomain)
 
-			g.POST("domain/:name/duplicate", api.DuplicateSite)
-			g.GET("domain/:name/cert", api.IssueCert)
-
+			//g.POST("domain/:name/duplicate", api.DuplicateSite)
+			//g.GET("domain/:name/cert", api.IssueCert)
+			g.GET("/sites", api.GetSites)
+			g.POST("/sites/create", api.CreateSite)
 			g.GET("configs", api.GetConfigs)
 			g.GET("config/*name", api.GetConfig)
 			g.POST("config", api.AddConfig)
@@ -97,18 +98,18 @@ func InitRouter() *gin.Engine {
 			g.GET("template/block/:name", api.GetTemplateBlock)
 			g.POST("template/block/:name", api.GetTemplateBlock)
 
-			g.GET("certs", api.GetCertList)
-			g.GET("cert/:id", api.GetCert)
-			g.POST("cert", api.AddCert)
-			g.POST("cert/:id", api.ModifyCert)
-			g.DELETE("cert/:id", api.RemoveCert)
+			//g.GET("certs", api.GetCertList)
+			//g.GET("cert/:id", api.GetCert)
+			//g.POST("cert", api.AddCert)
+			//g.POST("cert/:id", api.ModifyCert)
+			//g.DELETE("cert/:id", api.RemoveCert)
 
 			// Add domain to auto-renew cert list
-			g.POST("auto_cert/:name", api.AddDomainToAutoCert)
+			//g.POST("auto_cert/:name", api.AddDomainToAutoCert)
 			// Delete domain from auto-renew cert list
-			g.DELETE("auto_cert/:name", api.RemoveDomainFromAutoCert)
-			g.GET("auto_cert/dns/providers", api.GetDNSProvidersList)
-			g.GET("auto_cert/dns/provider/:code", api.GetDNSProvider)
+			//g.DELETE("auto_cert/:name", api.RemoveDomainFromAutoCert)
+			//g.GET("auto_cert/dns/providers", api.GetDNSProvidersList)
+			//g.GET("auto_cert/dns/provider/:code", api.GetDNSProvider)
 
 			// DNS Credential
 			g.GET("dns_credentials", api.GetDnsCredentialList)
