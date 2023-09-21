@@ -11,6 +11,7 @@ CREATE TABLE auth_tokens (
 DROP TABLE IF EXISTS certs;
 CREATE TABLE certs (
     id int unsigned auto_increment primary key ,
+    site_id int unsigned not null default '0' comment 'sites.id',
     name varchar(100) not null default '',
     domains text comment '',
     ssl_key text comment 'ssl_certificate_key private.key;',
@@ -55,6 +56,7 @@ create table sites (
     ssl_enable tinyint not null default '0' comment 'ssl是否启用 1:启用, 2:禁用',
     ssl_cert_state tinyint not null default '0' comment 'ssl 证书 状态 1: 申请开始, 2: 已完成',
     http_ports varchar(300) not null default '' comment 'http端口',
+    http_redirect tinyint not null default '0' comment 'http 转 https(443) 1: 转发, 2: 不转发',
     hsts_enable tinyint not null default '0' comment '1:启用, 2:禁用',
     https_ports varchar(300) not null default '' comment 'http',
     upstream_port_policy tinyint not null default '0' comment '1:同端口协议, 2: 回落到 80',

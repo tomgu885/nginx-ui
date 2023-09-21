@@ -32,6 +32,7 @@ func GetSites(c *gin.Context) {
 }
 
 // CreateSite
+// @Param data
 // @Router /api/sites/create [post]
 func CreateSite(c *gin.Context) {
 	var req model.SiteCreateReq
