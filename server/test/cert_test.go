@@ -3,7 +3,7 @@ package test
 import (
 	"fmt"
 	"log"
-	"nginx-ui/server/internal/nginx"
+	"nginx-ui/pkg/nginx"
 	"os"
 	"os/exec"
 	"testing"

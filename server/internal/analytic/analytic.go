@@ -2,7 +2,7 @@ package analytic
 
 import (
 	"github.com/shirou/gopsutil/v3/net"
-	"nginx-ui/server/internal/logger"
+	"nginx-ui/pkg/logger"
 	"time"
 )
 

@@ -1,7 +1,7 @@
 package model
 
 import (
-	"nginx-ui/server/internal/logger"
+	"nginx-ui/pkg/logger"
 	"os"
 	"path/filepath"
 )

@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm"
 	gormlogger "gorm.io/gorm/logger"
 	"log"
-	"nginx-ui/server/internal/logger"
+	"nginx-ui/pkg/logger"
 	"nginx-ui/server/model/soft_delete"
 	"nginx-ui/server/settings"
 	"os"
@@ -24,7 +24,7 @@ const (
 var db *gorm.DB
 
 type Model struct {
-	ID        int                    `gorm:"primary_key" json:"id"`
+	ID        uint                   `gorm:"primary_key" json:"id"`
 	CreatedAt int64                  `json:"created_at" gorm:"autoCreateTime"`
 	UpdatedAt int64                  `json:"updated_at" gorm:"autoUpdateTime"`
 	DeletedAt *soft_delete.DeletedAt `gorm:"index" json:"deleted_at"`

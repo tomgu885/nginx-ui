@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"net/http"
-	"nginx-ui/server/internal/logger"
+	"nginx-ui/pkg/logger"
 	"nginx-ui/server/internal/pty"
 )
 

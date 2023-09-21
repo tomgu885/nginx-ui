@@ -5,7 +5,7 @@ import (
 	"github.com/pretty66/websocketproxy"
 	"github.com/spf13/cast"
 	"net/http"
-	"nginx-ui/server/internal/logger"
+	"nginx-ui/pkg/logger"
 	"nginx-ui/server/query"
 )
 

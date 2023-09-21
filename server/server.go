@@ -3,9 +3,9 @@ package server
 import (
     "github.com/jpillora/overseer"
     "net/http"
+    "nginx-ui/pkg/logger"
+    "nginx-ui/pkg/nginx"
     "nginx-ui/server/internal/boot"
-    "nginx-ui/server/internal/logger"
-    "nginx-ui/server/internal/nginx"
     "nginx-ui/server/internal/upgrader"
     "nginx-ui/server/router"
 )

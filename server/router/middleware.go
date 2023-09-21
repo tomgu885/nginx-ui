@@ -8,7 +8,7 @@ import (
 	"io/fs"
 	"net/http"
 	"nginx-ui/frontend"
-	"nginx-ui/server/internal/logger"
+	"nginx-ui/pkg/logger"
 	"nginx-ui/server/model"
 	"nginx-ui/server/settings"
 	"path"

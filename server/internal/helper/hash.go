@@ -4,7 +4,7 @@ import (
 	"crypto/sha512"
 	"fmt"
 	"io"
-	"nginx-ui/server/internal/logger"
+	"nginx-ui/pkg/logger"
 	"os"
 )
 

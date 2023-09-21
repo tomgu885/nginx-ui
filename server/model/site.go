@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
+	"nginx-ui/pkg/logger"
 	"nginx-ui/pkg/utils"
 	"nginx-ui/pkg/validator"
-	"nginx-ui/server/internal/logger"
 	"strconv"
 	"strings"
 )
@@ -32,9 +32,10 @@ type Site struct {
 
 const (
 	//ssl 证书 状态 1: 申请开始, 2: 已完成
-	SslCertStateInit = 1
-	SslCertStateOk   = 2
-	SslCertStateFail = 3
+	SslCertStatePending = 1 // 等待申请
+	SslCertStateInit    = 2 // 开始申请
+	SslCertStateOk      = 3 // 完成
+	SslCertStateFail    = 4 // 错误
 )
 
 var (
@@ -51,8 +52,7 @@ type SiteListReq struct {
 }
 
 type SiteCreateReq struct {
-	Domains string `json:"domains"`
-	//State
+	Domains              string `json:"domains"`
 	SslEnable            int8   `json:"ssl_enable"`
 	HttpPorts            string `json:"http_ports" example:"多个端口以逗号隔开"`
 	HttpsPorts           string `json:"https_ports" example:"多个端口以逗号隔开"`
@@ -61,6 +61,41 @@ type SiteCreateReq struct {
 	UpstreamRotatePolicy int8   `json:"upstream_rotate_policy"` // 1: 轮询, 2: ip hash(暂时不实现)
 	UpstreamIps          string `json:"upstream_ips"`
 	UpstreamHost         string `json:"upstream_host"`
+}
+
+type SiteUpdateReq struct {
+	ID uint `json:"id"`
+	SiteCreateReq
+}
+
+func UpdateSite(req SiteUpdateReq) (err error) {
+	row, err := GetSiteById(req.ID)
+	if err != nil {
+		return
+	}
+
+	if row.ID == 0 {
+		return errors.New("站点不存在")
+	}
+
+	err = db.Where("id", req.ID).Updates(Site{
+		Domains:              req.Domains,
+		SslEnable:            req.SslEnable,
+		HttpPorts:            req.HttpPorts,
+		HttpsPorts:           req.HttpsPorts,
+		HttpRedirect:         req.HttpRedirect,
+		UpstreamPortPolicy:   req.UpstreamPortPolicy,
+		UpstreamRotatePolicy: req.UpstreamRotatePolicy,
+		UpstreamIps:          req.UpstreamIps,
+		UpstreamHost:         req.UpstreamHost,
+	}).Error
+
+	if err != nil {
+		return
+	}
+
+	// @todo 判断域名是否变化
+	return
 }
 
 func CreateSite(req SiteCreateReq) (err error) {
@@ -147,17 +182,20 @@ func CreateSite(req SiteCreateReq) (err error) {
 
 	if StateEnable == req.SslEnable {
 		ce := Cert{
-			Model:                 Model{},
-			Name:                  "",
-			Domains:               nil,
-			Filename:              "",
-			SSLCertificatePath:    "",
-			SSLCertificateKeyPath: "",
-			AutoCert:              0,
-			ChallengeMethod:       "",
-			DnsCredentialID:       0,
-			DnsCredential:         nil,
-			Log:                   "",
+			SiteId:       row.ID,
+			Name:         domains[0],
+			Domains:      req.Domains,
+			SslKey:       "",
+			SslCer:       "",
+			SslCertState: SslCertStatePending,
+			ExpiredAt:    0,
+			Log:          "",
+		}
+
+		errCe := db.Create(ce).Error
+
+		if errCe != nil {
+			return
 		}
 	}
 

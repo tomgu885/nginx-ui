@@ -20,12 +20,12 @@ require (
 	github.com/gorilla/websocket v1.5.0
 	github.com/hpcloud/tail v1.0.0
 	github.com/jpillora/overseer v1.1.6
-	github.com/lib/pq v1.10.9
 	github.com/pkg/errors v0.9.1
 	github.com/pretty66/websocketproxy v0.0.0-20220507015215-930b3a686308
 	github.com/sashabaranov/go-openai v1.14.2
 	github.com/shirou/gopsutil/v3 v3.23.7
 	github.com/spf13/cast v1.5.1
+	github.com/spf13/cobra v1.7.0
 	github.com/tufanbarisyildirim/gonginx v0.0.0-20230627120331-964b6ae8380e
 	github.com/unknwon/com v1.0.1
 	go.uber.org/zap v1.25.0
@@ -123,6 +123,7 @@ require (
 	github.com/hashicorp/go-retryablehttp v0.7.4 // indirect
 	github.com/hashicorp/go-uuid v1.0.3 // indirect
 	github.com/iij/doapi v0.0.0-20190504054126-0bbf12d6d7df // indirect
+	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/infobloxopen/infoblox-go-client v1.1.1 // indirect
 	github.com/itchyny/timefmt-go v0.1.5 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
@@ -184,6 +185,7 @@ require (
 	github.com/smartystreets/go-aws-auth v0.0.0-20180515143844-0c1422d1fdb9 // indirect
 	github.com/softlayer/softlayer-go v1.1.2 // indirect
 	github.com/softlayer/xmlrpc v0.0.0-20200409220501-5f089df7cb7e // indirect
+	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/stretchr/objx v0.5.1 // indirect
 	github.com/stretchr/testify v1.8.4 // indirect
 	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common v1.0.731 // indirect

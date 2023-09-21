@@ -1,8 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"nginx-ui/cmd/actor/cli"
+)
 
 func main() {
-	fmt.Println("run actor")
-
+	//router.InitRouter().Run(":8080")
+	if err := cli.Execute(); err != nil {
+		fmt.Println("err:", err)
+	}
 }

@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"github.com/gorilla/websocket"
 	"net/http"
-	"nginx-ui/server/internal/logger"
+	"nginx-ui/pkg/logger"
 	"nginx-ui/server/model"
 	"nginx-ui/server/query"
 	"time"

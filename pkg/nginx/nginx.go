@@ -1,7 +1,7 @@
 package nginx
 
 import (
-	"nginx-ui/server/internal/logger"
+	"nginx-ui/pkg/logger"
 	"nginx-ui/server/settings"
 	"os/exec"
 	"path/filepath"

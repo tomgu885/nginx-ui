@@ -11,7 +11,7 @@ import (
 	"net/http"
 	"net/url"
 	"nginx-ui/server/internal/analytic"
-	"nginx-ui/server/internal/logger"
+	"nginx-ui/pkg/logger"
 	"regexp"
 	"sync"
 )

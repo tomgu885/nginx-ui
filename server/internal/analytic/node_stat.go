@@ -5,7 +5,7 @@ import (
 	"github.com/shirou/gopsutil/v3/load"
 	"github.com/shirou/gopsutil/v3/net"
 	"math"
-	"nginx-ui/server/internal/logger"
+	"nginx-ui/pkg/logger"
 	"runtime"
 	"time"
 )

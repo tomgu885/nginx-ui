@@ -8,7 +8,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"nginx-ui/server/internal/logger"
+	"nginx-ui/pkg/logger"
 	"nginx-ui/server/internal/upgrader"
 	"nginx-ui/server/model"
 	"sync"
@@ -42,7 +42,7 @@ type Node struct {
 
 var mutex sync.Mutex
 
-type TNodeMap map[int]*Node
+type TNodeMap map[uint]*Node
 
 var NodeMap TNodeMap
 

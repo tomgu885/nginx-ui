@@ -3,7 +3,7 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"nginx-ui/server/internal/nginx"
+	"nginx-ui/pkg/nginx"
 	"nginx-ui/server/internal/template"
 )
 

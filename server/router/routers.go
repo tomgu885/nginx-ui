@@ -112,11 +112,11 @@ func InitRouter() *gin.Engine {
 			//g.GET("auto_cert/dns/provider/:code", api.GetDNSProvider)
 
 			// DNS Credential
-			g.GET("dns_credentials", api.GetDnsCredentialList)
-			g.GET("dns_credential/:id", api.GetDnsCredential)
-			g.POST("dns_credential", api.AddDnsCredential)
-			g.POST("dns_credential/:id", api.EditDnsCredential)
-			g.DELETE("dns_credential/:id", api.DeleteDnsCredential)
+			//g.GET("dns_credentials", api.GetDnsCredentialList)
+			//g.GET("dns_credential/:id", api.GetDnsCredential)
+			//g.POST("dns_credential", api.AddDnsCredential)
+			//g.POST("dns_credential/:id", api.EditDnsCredential)
+			//g.DELETE("dns_credential/:id", api.DeleteDnsCredential)
 
 			g.POST("nginx_log", api.GetNginxLogPage)
 
@@ -134,14 +134,14 @@ func InitRouter() *gin.Engine {
 			g.POST("chat_gpt_record", api.StoreChatGPTRecord)
 
 			// Environment
-			g.GET("environments", api.GetEnvironmentList)
-			envGroup := g.Group("environment")
-			{
-				envGroup.GET("/:id", api.GetEnvironment)
-				envGroup.POST("", api.AddEnvironment)
-				envGroup.POST("/:id", api.EditEnvironment)
-				envGroup.DELETE("/:id", api.DeleteEnvironment)
-			}
+			//g.GET("environments", api.GetEnvironmentList)
+			//envGroup := g.Group("environment")
+			//{
+			//	envGroup.GET("/:id", api.GetEnvironment)
+			//	envGroup.POST("", api.AddEnvironment)
+			//	envGroup.POST("/:id", api.EditEnvironment)
+			//	envGroup.DELETE("/:id", api.DeleteEnvironment)
+			//}
 
 			// node
 			g.GET("node", api.GetCurrentNode)

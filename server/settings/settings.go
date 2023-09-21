@@ -87,18 +87,23 @@ func init() {
 	LastModified = strings.ReplaceAll(t.Format(time.RFC1123), "UTC", "GMT")
 }
 
-func Init(confPath string) {
+func Init(confPath string) (err error) {
 	ConfPath = confPath
-	Setup()
+	return Setup()
 }
 
-func Setup() {
-	var err error
+func Setup() (err error) {
 	Conf, err = ini.LooseLoad(ConfPath)
 	if err != nil {
 		log.Fatalf("setting.Setup: %v\n", err)
 	}
+
+	if err != nil {
+		return
+	}
+
 	MapTo()
+	return
 }
 
 func MapTo() {

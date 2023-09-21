@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"nginx-ui/server/internal/nginx"
+	"nginx-ui/pkg/nginx"
 	"os"
 	"os/exec"
 	"strings"

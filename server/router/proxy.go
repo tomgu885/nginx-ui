@@ -7,7 +7,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"nginx-ui/server/internal/logger"
+	"nginx-ui/pkg/logger"
 	"nginx-ui/server/query"
 )
 

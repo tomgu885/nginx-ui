@@ -4,9 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sashabaranov/go-openai"
 	"net/http"
+	"nginx-ui/pkg/logger"
+	"nginx-ui/pkg/nginx"
 	"nginx-ui/server/internal/config_list"
-	"nginx-ui/server/internal/logger"
-	"nginx-ui/server/internal/nginx"
 	"nginx-ui/server/query"
 	"os"
 )

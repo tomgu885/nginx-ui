@@ -10,8 +10,8 @@ import (
 	"io"
 	"net/http"
 	"nginx-ui/server/internal/helper"
-	"nginx-ui/server/internal/logger"
-	"nginx-ui/server/internal/nginx"
+	"nginx-ui/pkg/logger"
+	"nginx-ui/pkg/nginx"
 	"nginx-ui/server/settings"
 	"os"
 )

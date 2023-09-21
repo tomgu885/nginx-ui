@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/cast"
 	"net/http"
 	"nginx-ui/server/internal/analytic"
-	"nginx-ui/server/internal/logger"
+	"nginx-ui/pkg/logger"
 	"runtime"
 	"time"
 
