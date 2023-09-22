@@ -12,6 +12,7 @@ var testCmd = &cobra.Command{
 	Short: "test nginx config",
 	RunE: func(cmd *cobra.Command, args []string) (err error) {
 		pid := nginx.GetNginxPIDPath()
+		fmt.Println("pid", pid)
 		result, err := nginx.TestConf()
 		if err != nil {
 			fmt.Println("err:", err)
@@ -24,6 +25,8 @@ var testCmd = &cobra.Command{
 		return
 	},
 }
+
+var configCmd = &cobra.Command{}
 
 var restartCmd = &cobra.Command{
 	Use:   "restart",

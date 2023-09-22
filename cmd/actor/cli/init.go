@@ -28,6 +28,7 @@ func init() {
     rootCmd.AddCommand(serveCmd)
     rootCmd.AddCommand(restartCmd)
     rootCmd.AddCommand(testCmd)
+    rootCmd.AddCommand()
 }
 
 func Execute() (err error) {
