@@ -3,7 +3,7 @@ package model
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 	"time"
 )
 

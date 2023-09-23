@@ -10,8 +10,8 @@ import (
 	gormlogger "gorm.io/gorm/logger"
 	"log"
 	"nginx-ui/pkg/logger"
+	"nginx-ui/pkg/settings"
 	"nginx-ui/server/model/soft_delete"
-	"nginx-ui/server/settings"
 	"os"
 	"time"
 )
@@ -27,7 +27,7 @@ type Model struct {
 	ID        uint                   `gorm:"primary_key" json:"id"`
 	CreatedAt int64                  `json:"created_at" gorm:"autoCreateTime"`
 	UpdatedAt int64                  `json:"updated_at" gorm:"autoUpdateTime"`
-	DeletedAt *soft_delete.DeletedAt `gorm:"index" json:"deleted_at"`
+	DeletedAt *soft_delete.DeletedAt `gorm:"column:deleted_at;default:0" json:"deleted_at"`
 }
 
 func GenerateAllModel() []any {

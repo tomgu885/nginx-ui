@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"nginx-ui/pkg/logger"
 	"nginx-ui/server/internal/upgrader"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 	"os"
 )
 

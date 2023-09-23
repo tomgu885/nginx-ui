@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"nginx-ui/server/model"
 	"nginx-ui/server/query"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 )
 
 func GetUsers(c *gin.Context) {

@@ -21,7 +21,7 @@ import (
 	"nginx-ui/pkg/nginx"
 	"nginx-ui/server/internal/cert/dns"
 	"nginx-ui/server/query"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 	"os"
 	"path/filepath"
 	"strings"

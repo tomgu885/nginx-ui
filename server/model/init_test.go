@@ -2,7 +2,7 @@ package model
 
 import (
 	"fmt"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 	"testing"
 )
 

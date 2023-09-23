@@ -6,7 +6,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sashabaranov/go-openai"
 	"io"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 	"os"
 	"testing"
 )

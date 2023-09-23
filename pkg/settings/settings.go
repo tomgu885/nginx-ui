@@ -32,6 +32,7 @@ type Server struct {
 }
 
 type Nginx struct {
+	MasterUrl     string `json:"master_url"`
 	AccessLogPath string `json:"access_log_path"`
 	ErrorLogPath  string `json:"error_log_path"`
 	ConfigDir     string `json:"config_dir"`
@@ -70,9 +71,12 @@ var NginxSettings = Nginx{
 }
 
 var OpenAISettings = OpenAI{}
-var DbSettings = Database{
-	Dsn: "default",
-}
+var (
+	DbSettings = Database{
+		Dsn: "default",
+	}
+	//Master = MasterConf{}
+)
 var ConfPath string
 
 var sections = map[string]any{

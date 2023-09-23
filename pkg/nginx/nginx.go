@@ -2,7 +2,7 @@ package nginx
 
 import (
 	"nginx-ui/pkg/logger"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 	"os/exec"
 	"path/filepath"
 	"regexp"

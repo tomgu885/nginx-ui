@@ -90,3 +90,17 @@ go 1.6 开始
 ## sqlite
 
 1. https://sqlite.org/cli.html
+
+## acme / let's encrypt 限制
+
+https://letsencrypt.org/docs/rate-limits/
+
+185.244.208.50 - - [22/Sep/2023:22:18:56 +0800] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+ssl.cloudfy669.xyz 185.244.208.50(-, -, RO ) - - [22/Sep/2023:22:20:33 +0800] "http GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36" 80
+ssl.cloudfy669.xyz 35.88.71.231(-, -, US ) - - [22/Sep/2023:22:59:42 +0800] "http GET /.well-known/acme-challenge/l-YMATzOopxC7y3SXp5rxR1qacetLXbZ8tewNswzu0Q HTTP/1.1" 200 87 "-" "Mozilla/5.0 (compatible; Let's Encrypt validation server; +https://www.letsencrypt.org)" 80
+ssl.cloudfy669.xyz 18.222.24.83(-, -, US ) - - [22/Sep/2023:22:59:42 +0800] "http GET /.well-known/acme-challenge/l-YMATzOopxC7y3SXp5rxR1qacetLXbZ8tewNswzu0Q HTTP/1.1" 200 87 "-" "Mozilla/5.0 (compatible; Let's Encrypt validation server; +https://www.letsencrypt.org)" 80
+ssl.cloudfy669.xyz 23.178.112.209(-, -, - ) - - [22/Sep/2023:22:59:42 +0800] "http GET /.well-known/acme-challenge/l-YMATzOopxC7y3SXp5rxR1qacetLXbZ8tewNswzu0Q HTTP/1.1" 200 87 "-" "Mozilla/5.0 (compatible; Let's Encrypt validation server; +https://www.letsencrypt.org)" 80
+---
+ssl2.cloudfy669.xyz 23.178.112.107(-, -, - ) - - [23/Sep/2023:09:49:16 +0800] "http GET /.well-known/acme-challenge/rN9hQ-hRMyeRKJrBFK54WGhW_yVkizhrmUfd_SOhmVM HTTP/1.1" 200 87 "-" "Mozilla/5.0 (compatible; Let's Encrypt validation server; +https://www.letsencrypt.org)" 80
+ssl2.cloudfy669.xyz 35.85.41.235(-, -, US ) - - [23/Sep/2023:09:49:16 +0800] "http GET /.well-known/acme-challenge/rN9hQ-hRMyeRKJrBFK54WGhW_yVkizhrmUfd_SOhmVM HTTP/1.1" 200 87 "-" "Mozilla/5.0 (compatible; Let's Encrypt validation server; +https://www.letsencrypt.org)" 80
+ssl2.cloudfy669.xyz 3.129.90.220(-, -, US ) - - [23/Sep/2023:09:49:16 +0800] "http GET /.well-known/acme-challenge/rN9hQ-hRMyeRKJrBFK54WGhW_yVkizhrmUfd_SOhmVM HTTP/1.1" 200 87 "-" "Mozilla/5.0 (compatible; Let's Encrypt validation server; +https://www.letsencrypt.org)" 80

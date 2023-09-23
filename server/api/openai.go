@@ -11,7 +11,7 @@ import (
 	"net/url"
 	"nginx-ui/server/model"
 	"nginx-ui/server/query"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 	"os"
 )
 

@@ -3,7 +3,7 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 )
 
 func GetSettings(c *gin.Context) {

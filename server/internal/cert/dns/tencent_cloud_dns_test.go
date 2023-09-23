@@ -13,7 +13,7 @@ import (
 	"log"
 	"net/http"
 	"nginx-ui/server/internal/cert"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 	"os"
 	"path/filepath"
 	"strings"

@@ -10,7 +10,7 @@ import (
 	"io"
 	"nginx-ui/pkg/logger"
 	"nginx-ui/pkg/nginx"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 	templ "nginx-ui/template"
 	"path/filepath"
 	"strings"

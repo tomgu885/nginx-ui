@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 	"os"
 )
 

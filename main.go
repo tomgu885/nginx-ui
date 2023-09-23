@@ -8,7 +8,7 @@ import (
 	"github.com/jpillora/overseer/fetcher"
 	"log"
 	"nginx-ui/server"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 )
 
 func main() {

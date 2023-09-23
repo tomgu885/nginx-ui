@@ -5,7 +5,7 @@ import (
 	"github.com/creack/pty"
 	"github.com/gorilla/websocket"
 	"github.com/pkg/errors"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 	"os"
 	"os/exec"
 	"time"

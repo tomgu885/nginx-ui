@@ -12,7 +12,7 @@ import (
 	"nginx-ui/server/internal/helper"
 	"nginx-ui/pkg/logger"
 	"nginx-ui/pkg/nginx"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 	"os"
 )
 

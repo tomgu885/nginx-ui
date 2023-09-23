@@ -11,7 +11,7 @@ import (
 	"nginx-ui/frontend"
 	"nginx-ui/pkg/logger"
 	"nginx-ui/server/internal/helper"
-	"nginx-ui/server/settings"
+	"nginx-ui/pkg/settings"
 	"os"
 	"path/filepath"
 	"runtime"

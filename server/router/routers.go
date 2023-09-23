@@ -27,8 +27,8 @@ func InitRouter() *gin.Engine {
 
 	root := r.Group("/api")
 	{
-		root.GET("install", api.InstallLockCheck)
-		root.POST("install", api.InstallNginxUI)
+		//root.GET("install", api.InstallLockCheck)
+		//root.POST("install", api.InstallNginxUI)
 
 		root.POST("/login", api.Login)
 		root.DELETE("/logout", api.Logout)
@@ -55,12 +55,6 @@ func InitRouter() *gin.Engine {
 			g.POST("user", api.AddUser)
 			g.POST("user/:id", api.EditUser)
 			g.DELETE("user/:id", api.DeleteUser)
-
-			//g.GET("domains", api.GetDomains)
-			//g.GET("domain/:name", api.GetDomain)
-
-			// Modify site configuration directly
-			//g.POST("domain/:name", api.SaveDomain)
 
 			// Transform NgxConf to nginx configuration
 			g.POST("ngx/build_config", api.BuildNginxConfig)
