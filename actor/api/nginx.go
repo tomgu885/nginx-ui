@@ -1,13 +1,24 @@
 package api
 
 import (
-    "github.com/gin-gonic/gin"
-    "github.com/tufanbarisyildirim/gonginx"
-    "nginx-ui/pkg/nginx"
+	"github.com/gin-gonic/gin"
+	"nginx-ui/actor/services"
+	"nginx-ui/pkg/helper"
+
+	"strconv"
 )
 
 // @Router
 func Update(c *gin.Context) {
-    cfg := nginx.NginxProxy{}
-    cfg.
+	siteId := c.Query("id")
+
+	id, err := strconv.Atoi(siteId)
+	if err != nil {
+		helper.FailWithMessage("id不是数字", c)
+		return
+	}
+
+	conf, err := services.ServerConfig(uint(id))
+	c.String(200, conf)
+	return
 }

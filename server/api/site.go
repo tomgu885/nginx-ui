@@ -3,9 +3,11 @@ package api
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"nginx-ui/actor/services"
+	"nginx-ui/pkg/helper"
 	"nginx-ui/pkg/logger"
-	"nginx-ui/server/internal/helper"
 	"nginx-ui/server/model"
+	"strconv"
 )
 
 // GetSites 获得站点列表
@@ -48,7 +50,21 @@ func CreateSite(c *gin.Context) {
 		return
 	}
 
-    helper.OkWithMessage("创建成功", c)
+	helper.OkWithMessage("创建成功", c)
+	return
+}
+
+func SiteConfig(c *gin.Context) {
+	siteId := c.Query("id")
+
+	id, err := strconv.Atoi(siteId)
+	if err != nil {
+		helper.FailWithMessage("id不是数字", c)
+		return
+	}
+
+	conf, err := services.ServerConfig(uint(id))
+	c.String(200, conf)
 	return
 }
 

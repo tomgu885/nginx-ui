@@ -8,6 +8,7 @@ import (
 	"io/fs"
 	"net/http"
 	"nginx-ui/frontend"
+	"nginx-ui/pkg/helper"
 	"nginx-ui/pkg/logger"
 	"nginx-ui/pkg/settings"
 	"nginx-ui/server/model"
@@ -38,6 +39,17 @@ func recovery() gin.HandlerFunc {
 		}()
 
 		c.Next()
+	}
+}
+
+func xRequestID() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		_traceId := c.GetHeader("x-request-id")
+		if _traceId == "" {
+			_traceId = helper.RandStr(50)
+		}
+
+		c.Set("x-request-id", _traceId)
 	}
 }
 

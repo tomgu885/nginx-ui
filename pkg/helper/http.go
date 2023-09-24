@@ -6,9 +6,10 @@ import (
 )
 
 type Response struct {
-	Code int    `json:"code"`
-	Data any    `json:"data"`
-	Msg  string `json:"msg"`
+	Code    int    `json:"code"`
+	Data    any    `json:"data"`
+	Msg     string `json:"msg"`
+	TraceId string `json:"trace_id"`
 }
 
 type PageResult struct {
@@ -29,6 +30,7 @@ func Result(code int, data any, msg string, c *gin.Context) {
 		code,
 		data,
 		msg,
+		c.GetString("x-request-id"),
 	})
 }
 

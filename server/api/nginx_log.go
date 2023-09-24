@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/cast"
 	"io"
 	"net/http"
-	"nginx-ui/server/internal/helper"
+	"nginx-ui/pkg/helper"
 	"nginx-ui/pkg/logger"
 	"nginx-ui/pkg/nginx"
 	"nginx-ui/pkg/settings"

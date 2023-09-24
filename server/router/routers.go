@@ -12,7 +12,7 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Logger())
 
 	r.Use(recovery())
-
+	r.Use(xRequestID())
 	r.Use(cacheJs())
 
 	r.Use(OperationSync())
@@ -32,7 +32,7 @@ func InitRouter() *gin.Engine {
 
 		root.POST("/login", api.Login)
 		root.DELETE("/logout", api.Logout)
-
+		root.GET("updates", api.Updates)
 		w := root.Group("/", authRequired(), proxyWs())
 		{
 			// Analytic
@@ -78,6 +78,7 @@ func InitRouter() *gin.Engine {
 			//g.GET("domain/:name/cert", api.IssueCert)
 			g.GET("/sites", api.GetSites)
 			g.POST("/sites/create", api.CreateSite)
+			g.GET("/sites/config", api.SiteConfig)
 			g.GET("configs", api.GetConfigs)
 			g.GET("config/*name", api.GetConfig)
 			g.POST("config", api.AddConfig)
@@ -142,7 +143,7 @@ func InitRouter() *gin.Engine {
 
 			// translation
 			g.GET("translation/:code", api.GetTranslation)
-		}
+		} // authRequired()
 	}
 
 	return r

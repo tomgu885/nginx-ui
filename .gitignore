@@ -4,6 +4,7 @@ database.db
 tmp
 node_modules
 app.ini
+bin
 dist
 *.exe
 *.po~

@@ -10,7 +10,7 @@ import (
 	_github "nginx-ui/.github"
 	"nginx-ui/frontend"
 	"nginx-ui/pkg/logger"
-	"nginx-ui/server/internal/helper"
+	"nginx-ui/pkg/helper"
 	"nginx-ui/pkg/settings"
 	"os"
 	"path/filepath"
