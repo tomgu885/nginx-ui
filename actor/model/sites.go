@@ -22,3 +22,8 @@ type SitePageResult struct {
         Total uint         `json:"total"`
     } `json:"data"`
 }
+
+type UpdateReq struct {
+    Force int `json:"force"` // 1 force, 2: not force
+
+}

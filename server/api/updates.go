@@ -7,6 +7,10 @@ import (
     "nginx-ui/server/model"
 )
 
+func Report(c *gin.Context) {
+
+}
+
 // cert & sites
 func Updates(c *gin.Context) {
     // @todo sign, valid

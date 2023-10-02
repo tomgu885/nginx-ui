@@ -1,6 +1,7 @@
 package server
 
 import (
+    "fmt"
     "github.com/jpillora/overseer"
     "net/http"
     "nginx-ui/pkg/logger"
@@ -22,6 +23,7 @@ func Program(state overseer.State) {
     boot.Kernel()
 
     if state.Listener != nil {
+        fmt.Println("state.Listener:", state.Listener)
         err := http.Serve(state.Listener, router.InitRouter())
         if err != nil {
             logger.Error(err)

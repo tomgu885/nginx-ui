@@ -94,4 +94,17 @@ CREATE TABLE environments (
     updated_at int unsigned not null default '0',
     deleted_at int unsigned not null default '0' comment '删除标记',
     index(deleted_at)
+) engine=innoDB default charset=utf8mb4 comment '环境变量';
+
+DROP TABLE IF EXISTS sys_log;
+CREATE TABLE sys_log (
+    id bigint unsigned auto_increment primary key ,
+    trace_id varchar(100) not null default '' comment '跟踪码',
+    node_id varchar(50) not null default '' comment '节点 master:主节点, node-xxx:子节点',
+    restarted smallint not null default '0' comment '是否重启 nginx 1:重启, 2:没有',
+    site_updated smallint not null default '0' comment '更新站点数量',
+    content text,
+    created_at int unsigned not null default '0',
+    index(trace_id),
+    index(created_at)
 ) engine=innoDB default charset=utf8mb4;

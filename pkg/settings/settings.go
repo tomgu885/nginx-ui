@@ -31,7 +31,14 @@ type Server struct {
     GithubProxy       string `json:"github_proxy"`
 }
 
+type Node struct {
+    List string `json:"list"`
+    Ips  string `json:"ips"`
+}
+
 type Nginx struct {
+    MasterIp      string `json:"master_ip"`
+    NodePort      string `json:"node_port"`
     MasterUrl     string `json:"master_url"`
     Via           string `json:"via"`
     AccessLogPath string `json:"access_log_path"`
@@ -78,9 +85,12 @@ var (
     }
     //Master = MasterConf{}
 )
+
+var nodeConf Node
 var ConfPath string
 
 var sections = map[string]any{
+    "node":   &nodeConf,
     "db":     &DbSettings,
     "server": &ServerSettings,
     "nginx":  &NginxSettings,
@@ -154,4 +164,12 @@ func NginxConfigDir() string {
     }
 
     return thisDir
+}
+
+func GetNodeList() []string {
+    return strings.Split(nodeConf.List, ",")
+}
+
+func GetNodeIps() []string {
+    return strings.Split(nodeConf.Ips, ",")
 }

@@ -2,6 +2,7 @@ package services
 
 import (
     "fmt"
+    amodel "nginx-ui/actor/model"
     "nginx-ui/pkg/logger"
     "nginx-ui/pkg/nginx"
     "nginx-ui/pkg/settings"
@@ -25,12 +26,76 @@ func ServerConfig(id uint) (conf string, err error) {
     return
 }
 
+// ServerConfigReload 重载配置
+// 1. 下载配置
+// 2. 更新配置
+// 3. 回调
+func ServerConfigReload(force bool) (restarted bool, siteUpdated uint, err error) {
+    siteUpdated, err = ServerConfigDownloading(force)
+    if err != nil {
+        return
+    }
+
+    if siteUpdated > 0 || force {
+        restarted = true
+    }
+
+    return
+}
+
+func report(requestId, content string) (err error) {
+    url := settings.NginxSettings.MasterUrl + "/api/node/report"
+    headers := map[string]string{
+        "x-request-id": requestId,
+    }
+    resp, err := client.R().SetHeaders(headers).
+        SetBody(&map[string]string{
+            "content": content,
+        }).Post(url)
+
+    if err != nil {
+        return
+    }
+    fmt.Printf("resp: %s\n", resp.Body())
+    return
+}
+
+func ServerConfigDownloading(force bool) (siteUpdated uint, err error) {
+    url := settings.NginxSettings.MasterUrl + "/api/node/updates"
+
+    var result amodel.SitePageResult
+    _, err = client.R().SetResult(&result).Get(url)
+
+    if err != nil {
+        return
+    }
+
+    //fmt.Printf("resp: %s\n", resp.Body())
+    fmt.Println("resultCode:", result.Code)
+    fmt.Println("sites count:", len(result.Data.List))
+    for _, row := range result.Data.List {
+        hasUpdated, errW := DumpConfig(row, true)
+        if errW != nil {
+            logger.Errorf("writeFile: %s", errW)
+            continue
+        }
+
+        logger.Infof("write :%t", hasUpdated)
+        if hasUpdated {
+            siteUpdated++
+        }
+    }
+
+    return
+}
+
 // http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache
 func DumpConfig(site model.Site, force bool) (updated bool, err error) {
     lastUpdate := site.UpdatedAt
     fileName := settings.NginxConfigDir() + site.Name + ".conf"
     lastModified := readLastModified(fileName)
-    if !force && lastModified >= lastUpdate {
+    hasUpdated := lastModified >= lastUpdate
+    if !force && hasUpdated {
         return false, nil
     }
     fmt.Printf("filename %s\n", fileName)
@@ -43,7 +108,7 @@ func DumpConfig(site model.Site, force bool) (updated bool, err error) {
         return false, err
     }
     logger.Infof("dumpConfig file :%s", fileName)
-    return true, nil
+    return hasUpdated, nil
 }
 
 var modifiedExp = regexp.MustCompile(`lastModified:\s(?P<modified>\d+?)\n`)
@@ -72,6 +137,6 @@ func readLastModified(fileName string) (updated int64) {
     return
 }
 
-func ServerUpdate() {
+func ServerRestart() {
 
 }

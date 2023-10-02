@@ -1,6 +1,7 @@
 package cli
 
 import (
+    "fmt"
     "github.com/spf13/cobra"
     "nginx-ui/actor/router"
     "nginx-ui/pkg/settings"
@@ -19,7 +20,7 @@ var serveCmd = &cobra.Command{
     Use:   "serve",
     Short: "监听服务",
     RunE: func(cmd *cobra.Command, args []string) (err error) {
-        return router.InitRouter().Run(":8080")
+        return router.InitRouter().Run(fmt.Sprintf(":%s", settings.NginxSettings.NodePort))
     },
 }
 
@@ -31,6 +32,7 @@ func init() {
     rootCmd.AddCommand(testCmd)
     rootCmd.AddCommand(configServerCmd)
     rootCmd.AddCommand(configCmd)
+
 }
 
 func Execute() (err error) {
