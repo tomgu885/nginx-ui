@@ -24,6 +24,7 @@ type SitePageResult struct {
 }
 
 type UpdateReq struct {
-    Force int `json:"force"` // 1 force, 2: not force
+    Force   int `json:"force"`   // 1 force, 2: not force
+    Restart int `json:"restart"` // 重启 1: restart , 2:reload
 
 }

@@ -8,7 +8,15 @@ import (
 )
 
 func Report(c *gin.Context) {
+    var req model.LogCreateReq
+    if err := c.ShouldBindJSON(&req); err != nil {
+        helper.FailWithMessage("json错误:"+err.Error(), c)
+        return
+    }
 
+    model.CreateLog(req, c.GetString("x-request-id"))
+    helper.OkWithMessage("保存成功", c)
+    return
 }
 
 // cert & sites

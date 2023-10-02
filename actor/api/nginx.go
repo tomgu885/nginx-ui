@@ -5,6 +5,7 @@ import (
     "nginx-ui/actor/model"
     "nginx-ui/actor/services"
     "nginx-ui/pkg/helper"
+    "nginx-ui/pkg/logger"
 
     "strconv"
 )
@@ -26,17 +27,19 @@ func Update(c *gin.Context) {
 
 func Updates(c *gin.Context) {
     var req model.UpdateReq
-    if err := c.ShouldBindJSON(req); err != nil {
-        helper.FailWithMessage("json错误", c)
+    if err := c.ShouldBindJSON(&req); err != nil {
+        helper.FailWithMessage("json错误:"+err.Error(), c)
         return
     }
 
     requestId := c.GetString("x-request-id")
 
-    go func(force bool, requestId string) {
-        services.ServerConfigReload(force)
-
-    }(req.Force == 1, requestId)
+    go func(force, restart bool, requestId string) {
+        errR := services.ServerConfigReload(force, restart, requestId)
+        if errR != nil {
+            logger.Errorf("fail to reload :%v", errR)
+        }
+    }(req.Force == 1, req.Restart == 1, requestId)
 
     helper.OkWithMessage("更新中", c)
 

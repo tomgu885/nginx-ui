@@ -30,7 +30,7 @@ func Reload() (string, error) {
         out, err := execShell(settings.NginxSettings.ReloadCmd)
 
         if err != nil {
-            logger.Error(err)
+            logger.Error("reload failed", err)
             return out, err
         }
 

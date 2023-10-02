@@ -15,5 +15,19 @@ func (SysLog) TableName() string {
 }
 
 type LogCreateReq struct {
-    NodeId string `json:"node_id"`
+    NodeId      string `json:"node_id"`
+    Content     string `json:"content"`
+    Restarted   int    `json:"restarted"`
+    SiteUpdated uint   `json:"site_updated"`
+}
+
+func CreateLog(req LogCreateReq, requestId string) (err error) {
+    return db.Create(&SysLog{
+        ID:          0,
+        NodeId:      req.NodeId,
+        TraceId:     requestId,
+        Restarted:   req.Restarted,
+        SiteUpdated: req.SiteUpdated,
+        Content:     req.Content,
+    }).Error
 }

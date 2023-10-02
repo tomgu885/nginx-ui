@@ -43,7 +43,7 @@ var configCmd = &cobra.Command{
     //
     //},
     RunE: func(cmd *cobra.Command, args []string) (err error) {
-
+        services.ServerConfigReload(true, false, "cmd")
         return
     },
 }

@@ -53,7 +53,7 @@ func (n NginxProxy) proxyBlock() (proxy string) {
     } else {
         proxy += fmt.Sprintf("\t\tproxy_set_header Host %s;\n", n.Site.UpstreamHost)
     }
-    proxy += fmt.Sprintf("\t\tproxy_set_header Via %s\n", settings.NginxSettings.Via)
+    proxy += fmt.Sprintf("\t\tproxy_set_header Via %s;\n", settings.NginxSettings.Via)
     proxy += "\t\tproxy_set_header X-Real_IP $remote_addr;\n"
     proxy += "\t\tproxy_set_header X-Forwarded-Proto $scheme;\n"
     proxy += "\t\tproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n"

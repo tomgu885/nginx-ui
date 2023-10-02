@@ -30,28 +30,50 @@ func ServerConfig(id uint) (conf string, err error) {
 // 1. 下载配置
 // 2. 更新配置
 // 3. 回调
-func ServerConfigReload(force bool) (restarted bool, siteUpdated uint, err error) {
-    siteUpdated, err = ServerConfigDownloading(force)
+func ServerConfigReload(force, restart bool, requestId string) (err error) {
+    restarted := false
+    siteUpdated, err := ServerConfigDownloading(force)
     if err != nil {
         return
     }
-
+    output := ""
     if siteUpdated > 0 || force {
+        if restart {
+            output, err = nginx.Restart()
+        } else {
+            output, err = nginx.Reload()
+        }
+        if err != nil {
+            logger.Errorf("nginx.reload failed err:%v", err)
+            report(requestId, output, siteUpdated, restarted)
+            return
+        }
         restarted = true
+    } else {
+        output = "no site updates"
     }
 
+    report(requestId, output, siteUpdated, restarted)
     return
 }
 
-func report(requestId, content string) (err error) {
+func report(requestId, content string, siteUpdated uint, restarted bool) (err error) {
     url := settings.NginxSettings.MasterUrl + "/api/node/report"
     headers := map[string]string{
         "x-request-id": requestId,
     }
+    data := map[string]any{
+        "content":      content,
+        "node_id":      settings.NginxSettings.Via,
+        "restarted":    2,
+        "site_updated": siteUpdated,
+    }
+
+    if restarted {
+        data["restarted"] = 1
+    }
     resp, err := client.R().SetHeaders(headers).
-        SetBody(&map[string]string{
-            "content": content,
-        }).Post(url)
+        SetBody(data).Post(url)
 
     if err != nil {
         return
@@ -74,7 +96,7 @@ func ServerConfigDownloading(force bool) (siteUpdated uint, err error) {
     fmt.Println("resultCode:", result.Code)
     fmt.Println("sites count:", len(result.Data.List))
     for _, row := range result.Data.List {
-        hasUpdated, errW := DumpConfig(row, true)
+        hasUpdated, errW := DumpConfig(row, force)
         if errW != nil {
             logger.Errorf("writeFile: %s", errW)
             continue
@@ -94,10 +116,12 @@ func DumpConfig(site model.Site, force bool) (updated bool, err error) {
     lastUpdate := site.UpdatedAt
     fileName := settings.NginxConfigDir() + site.Name + ".conf"
     lastModified := readLastModified(fileName)
-    hasUpdated := lastModified >= lastUpdate
-    if !force && hasUpdated {
+    hasUpdated := lastUpdate > lastModified
+    fmt.Printf("hasUpdate: %t, file:%d, db:%d\n", hasUpdated, lastModified, lastUpdate)
+    if !force && !hasUpdated {
         return false, nil
     }
+
     fmt.Printf("filename %s\n", fileName)
 
     proxy := nginx.NewNginxProxy(site)
