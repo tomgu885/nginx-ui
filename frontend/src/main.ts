@@ -18,7 +18,7 @@ app.use(pinia)
 app.use(gettext)
 // after pinia created
 const settings = useSettingsStore()
-gettext.current = settings.language || 'en'
+gettext.current = 'zh_CN'//settings.language || 'cn'
 
 app.use(router).use(autoAnimatePlugin).mount('#app')
 

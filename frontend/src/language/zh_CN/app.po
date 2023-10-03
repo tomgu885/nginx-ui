@@ -880,7 +880,7 @@ msgstr "网络"
 
 #: src/views/dashboard/ServerAnalytic.vue:52
 msgid "Network Statistics"
-msgstr "流量统计"
+msgstr "流量统计^_^"
 
 #: src/views/dashboard/ServerAnalytic.vue:56
 msgid "Network Total Receive"

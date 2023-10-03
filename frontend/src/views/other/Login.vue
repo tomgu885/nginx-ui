@@ -14,12 +14,6 @@ const thisYear = new Date().getFullYear()
 const route = useRoute()
 const router = useRouter()
 
-install.get_lock().then(async (r: { lock: boolean }) => {
-    if (!r.lock) {
-        await router.push('/install')
-    }
-})
-
 const {$gettext} = gettext
 const loading = ref(false)
 
@@ -32,7 +26,7 @@ const rulesRef = reactive({
     username: [
         {
             required: true,
-            message: () => $gettext('Please input your username!')
+            message: () => '请输入您的用户名！', //$gettext('Please input your username!')
         }
     ],
     password: [
@@ -76,13 +70,13 @@ watch(() => gettext.current, () => {
     <div class="container">
         <div class="login-form">
             <div class="project-title">
-                <h1>Nginx UI</h1>
+                <h1>Cool CDN</h1>
             </div>
             <a-form id="components-form-demo-normal-login">
                 <a-form-item v-bind="validateInfos.username">
                     <a-input
                         v-model:value="modelRef.username"
-                        :placeholder="$gettext('Username')"
+                        placeholder="用户名"
                     >
                         <template #prefix>
                             <UserOutlined style="color: rgba(0, 0, 0, 0.25)"/>
@@ -92,7 +86,7 @@ watch(() => gettext.current, () => {
                 <a-form-item v-bind="validateInfos.password">
                     <a-input-password
                         v-model:value="modelRef.password"
-                        :placeholder="$gettext('Password')"
+                        placeholder="密码"
                     >
                         <template #prefix>
                             <LockOutlined style="color: rgba(0, 0, 0, 0.25)"/>
@@ -101,14 +95,13 @@ watch(() => gettext.current, () => {
                 </a-form-item>
                 <a-form-item>
                     <a-button @click="onSubmit" type="primary" :block="true" html-type="submit" :loading="loading">
-                        <translate>Login</translate>
+                        登陆
                     </a-button>
                 </a-form-item>
             </a-form>
             <div class="footer">
-                <p>Copyright © 2020 - {{ thisYear }} Nginx UI</p>
-                Language
-                <set-language class="set_lang" style="display: inline"/>
+                <p>Copyright © 2020 - {{ thisYear }} Cool CDN</p>
+
             </div>
         </div>
     </div>

@@ -7,6 +7,7 @@ import (
     "strings"
 )
 
+// https://nginxui.com/zh_CN/guide/nginx-proxy-example.html
 type NginxProxy struct {
     Site model.Site
     //Name       string `json:"name"`
