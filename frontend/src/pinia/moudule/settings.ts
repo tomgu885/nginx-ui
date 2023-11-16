@@ -2,7 +2,7 @@ import {defineStore} from 'pinia'
 
 export const useSettingsStore = defineStore('settings', {
     state: () => ({
-        language: 'zh_CN',
+        language: '',
         theme: 'light',
         preference_theme: 'auto',
         environment: {

@@ -3,6 +3,8 @@
 
 https://nginxui.com/
 
+https://github.com/go-acme/lego
+
 ## 开发步骤
 
 ```bash
@@ -93,6 +95,8 @@ go 1.6 开始
 
 ## acme / let's encrypt 限制
 
+
+https://go-acme.github.io/lego/usage/library/
 https://letsencrypt.org/docs/rate-limits/
 
 185.244.208.50 - - [22/Sep/2023:22:18:56 +0800] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"

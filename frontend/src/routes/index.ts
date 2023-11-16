@@ -22,36 +22,18 @@ const {$gettext} = gettext
 export const routes = [
     {
         path: '/',
-        name: () => '首页',
+        name: () => $gettext('Home'),
         component: () => import('@/layouts/BaseLayout.vue'),
         redirect: '/dashboard',
         children: [
             {
                 path: 'dashboard',
                 component: () => import('@/views/dashboard/DashBoard.vue'),
-                name: () => '仪表板',
+                name: () => $gettext('Dashboard'),
                 meta: {
                     // hiddenHeaderContent: true,
                     icon: HomeOutlined
-                },
-                redirect: '/sites/list',
-
-            },
-            {
-                path:"sites",
-                name :() => '网站管理',
-                component:() => import('@/views/sites/SiteList.vue'),
-                meta: {
-                    icon: CloudOutlined,
-                },
-                children:[{
-                    path: 'add',
-                    name:() => '添加',
-                    component: ()=> import('@/view/sites/SiteAdd.vue'),
-                    meta: {
-                        hiddenInSidebar: true
-                    }
-                }]
+                }
             },
             {
                 path: 'domain',
@@ -83,7 +65,6 @@ export const routes = [
                 name: () => $gettext('Manage Configs'),
                 component: () => import('@/views/config/Config.vue'),
                 meta: {
-                    hiddenInSidebar: true,
                     icon: FileOutlined,
                     hideChildren: true
                 }
@@ -116,7 +97,37 @@ export const routes = [
                     }
                 ]
             },
-
+            {
+                path: 'terminal',
+                name: () => $gettext('Terminal'),
+                component: () => import('@/views/pty/Terminal.vue'),
+                meta: {
+                    icon: CodeOutlined
+                }
+            },
+            {
+                path: 'nginx_log',
+                name: () => $gettext('Nginx Log'),
+                meta: {
+                    icon: FileTextOutlined
+                },
+                children: [{
+                    path: 'access',
+                    name: () => $gettext('Access Logs'),
+                    component: () => import('@/views/nginx_log/NginxLog.vue')
+                }, {
+                    path: 'error',
+                    name: () => $gettext('Error Logs'),
+                    component: () => import('@/views/nginx_log/NginxLog.vue')
+                }, {
+                    path: 'site',
+                    name: () => $gettext('Site Logs'),
+                    component: () => import('@/views/nginx_log/NginxLog.vue'),
+                    meta: {
+                        hiddenInSidebar: true
+                    }
+                }]
+            },
             {
                 path: 'environment',
                 name: () => $gettext('Environment'),
@@ -125,14 +136,14 @@ export const routes = [
                     icon: DatabaseOutlined
                 }
             },
-            // {
-            //     path: 'user',
-            //     name: () => $gettext('Manage Users'),
-            //     component: () => import('@/views/user/User.vue'),
-            //     meta: {
-            //         icon: UserOutlined
-            //     }
-            // },
+            {
+                path: 'user',
+                name: () => $gettext('Manage Users'),
+                component: () => import('@/views/user/User.vue'),
+                meta: {
+                    icon: UserOutlined
+                }
+            },
             {
                 path: 'preference',
                 name: () => $gettext('Preference'),
@@ -159,6 +170,12 @@ export const routes = [
                 }]
             }
         ]
+    },
+    {
+        path: '/install',
+        name: () => $gettext('Install'),
+        component: () => import('@/views/other/Install.vue'),
+        meta: {noAuth: true}
     },
     {
         path: '/login',

@@ -23,7 +23,7 @@ func Program(state overseer.State) {
     boot.Kernel()
 
     if state.Listener != nil {
-        fmt.Println("state.Listener:", state.Listener)
+        fmt.Println("state.Listener.Addr():", state.Listener.Addr())
         err := http.Serve(state.Listener, router.InitRouter())
         if err != nil {
             logger.Error(err)

@@ -27,7 +27,8 @@ function logout() {
         </div>
 
         <a-space class="user-wrapper" :size="24">
-            
+            <set-language class="set_lang"/>
+
             <a href="/">
                 <HomeOutlined/>
             </a>
