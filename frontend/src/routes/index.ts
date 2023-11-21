@@ -36,6 +36,24 @@ export const routes = [
                 }
             },
             {
+                path:"sites",
+                name: () => { return 'CDN站点管理'},
+                component: () => import('@/layouts/BaseRouterView.vue'),
+                meta: {
+                    icon:CloudOutlined
+                },
+                redirect: '/sites/list',
+                children:[{
+                    'path':'list',
+                    name: () => {return 'CDN站点列表'},
+                    component:() => import('@/views/sites/list.vue'),
+                },{
+                    path:'add',
+                    name:() => {return '添加'},
+                    component: () => import('@/views/sites/add'),
+                }]
+            },
+            {
                 path: 'domain',
                 name: () => $gettext('Manage Sites'),
                 component: () => import('@/layouts/BaseRouterView.vue'),

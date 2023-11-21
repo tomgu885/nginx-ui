@@ -11,12 +11,12 @@ const emit = defineEmits(['update:target'])
 const data = ref([])
 const data_map = ref({})
 
-environment.get_list().then(r => {
-    data.value = r.data
-    r.data.forEach(node => {
-        data_map[node.id] = node
-    })
-})
+// environment.get_list().then(r => {
+//     data.value = r.data
+//     r.data.forEach(node => {
+//         data_map[node.id] = node
+//     })
+// })
 
 const value = computed({
     get() {

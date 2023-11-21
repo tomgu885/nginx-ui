@@ -60,6 +60,12 @@ type Database struct {
     Dsn string `json:"dsn"`
 }
 
+type Redis struct {
+    Addr     string `json:"Addr"` // localhost:6379,
+    Password string `json:"password"`
+    Db       int    `json:"db"`
+}
+
 var ServerSettings = Server{
     HttpHost:          "0.0.0.0",
     HttpPort:          "9000",
@@ -83,6 +89,7 @@ var (
     DbSettings = Database{
         Dsn: "default",
     }
+    RedisSettings = Redis{}
     //Master = MasterConf{}
 )
 
@@ -92,6 +99,7 @@ var ConfPath string
 var sections = map[string]any{
     "node":   &nodeConf,
     "db":     &DbSettings,
+    "redis":  &RedisSettings,
     "server": &ServerSettings,
     "nginx":  &NginxSettings,
     "openai": &OpenAISettings,

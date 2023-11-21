@@ -165,6 +165,7 @@ function get_list(page_num = null, page_size = 20) {
 
         loading.value = false
     }).catch((e: any) => {
+        console.log('failed');
         message.error(e?.message ?? $gettext('Server error'))
     })
 }

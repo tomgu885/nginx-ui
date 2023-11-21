@@ -15,3 +15,7 @@ func TestGetSiteByName(t *testing.T) {
 
 	fmt.Println("site.id", site.ID)
 }
+
+func TestGetSites(t *testing.T) {
+	//data ,err := GetSites()
+}

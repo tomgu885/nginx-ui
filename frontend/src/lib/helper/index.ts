@@ -76,6 +76,11 @@ function formatDateTime(t: string) {
     return dayjs(t).format('YYYY-MM-DD HH:mm:ss')
 }
 
+function stateFormat(st: number): string {
+    return st == 1 ? '是': '否'
+}
+
+
 export {
     bytesToSize,
     downloadCsv,
@@ -83,5 +88,6 @@ export {
     createEnum,
     fromNow,
     formatDate,
-    formatDateTime
+    formatDateTime,
+    stateFormat,
 }

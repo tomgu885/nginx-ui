@@ -111,7 +111,10 @@ function selector(edit: IEdit, dataSource: any, dataIndex: any) {
 }
 
 function antSwitch(edit: IEdit, dataSource: any, dataIndex: any) {
+    console.log('antSwitch Edit', edit.checkedValue);
     return h(Switch, {
+        checkedValue: edit.checkedValue?? true,
+        unCheckedValue: edit.unCheckedValue?? true,
         checked: dataSource?.[dataIndex],
         'onUpdate:checked': value => {
             dataSource[dataIndex] = value

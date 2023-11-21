@@ -3,7 +3,7 @@ import Logo from '@/components/Logo/Logo.vue'
 import {routes} from '@/routes'
 import {useRoute} from 'vue-router'
 import {computed, ComputedRef, ref, watch} from 'vue'
-import EnvIndicator from '@/components/EnvIndicator/EnvIndicator.vue'
+// import EnvIndicator from '@/components/EnvIndicator/EnvIndicator.vue'
 
 const route = useRoute()
 
@@ -80,8 +80,7 @@ const visible: ComputedRef<sidebar[]> = computed(() => {
             v-model:openKeys="openKeys"
             v-model:selectedKeys="selectedKey"
         >
-            <env-indicator/>
-            
+
             <template v-for="sidebar in visible">
                 <a-menu-item v-if="sidebar.children.length===0 || sidebar.meta.hideChildren"
                              :key="sidebar.name"

@@ -54,8 +54,14 @@ create table sites (
     domains text comment '[]string, 逗号隔开',
     domain_count smallint unsigned default '0',
     state tinyint not null default '0' comment '1: 启用, 2:禁用',
+    websocket_enable tinyint not null default '0' comment '1: 启用, 2:禁用',
     ssl_enable tinyint not null default '0' comment 'ssl是否启用 1:启用, 2:禁用',
     ssl_cert_state tinyint not null default '0' comment 'ssl 证书 状态 1:等待, 2: 申请开始, 3: 已完成, 4:失败',
+    ssl_filename varchar(200) not null default '' comment 'ssl文件名',
+    ssl_obtain_log text,
+    ssl_private_key text,
+    ssl_fullchain_cer text,
+    ssl_expired_at int unsigned not null default '0' comment 'ssl 过期时间',
     http_ports varchar(300) not null default '' comment 'http端口',
     http_redirect tinyint not null default '0' comment 'http 转 https(443) 1: 转发, 2: 不转发',
     hsts_enable tinyint not null default '0' comment '1:启用, 2:禁用',
@@ -108,3 +114,26 @@ CREATE TABLE sys_log (
     index(trace_id),
     index(created_at)
 ) engine=innoDB default charset=utf8mb4;
+
+drop table if exists nodes;
+CREATE TABLE nodes (
+    id int unsigned auto_increment primary key ,
+    title varchar(20) not null default '' comment '名称',
+    api_url varchar(200) not null default '' comment '',
+    state tinyint not null default '0' comment '1:正常 ,2: 暂停',
+    created_at int unsigned not null default '0',
+    updated_at int unsigned not null default '0',
+    deleted_at int unsigned not null default '0' comment '删除标记',
+    index(deleted_at)
+) engine=innoDB default charset=utf8mb4 comment '节点';
+
+
+drop table if exists settings;
+CREATE TABLE settings (
+    id int unsigned auto_increment primary key ,
+    name varchar(30) not null default '',
+    content varchar(1000) not null default '' comment '内容',
+    data_type varchar(20) not null default '' comment 'json, array, int, string'
+) engine=innoDB comment '配置' default charset=utf8mb4;
+-- insert into settings (`name`, content, `data_type`) values ('cname', 'cname1.cloud699.xyz,cname2.cloud699.xyz', 'array');
+--
