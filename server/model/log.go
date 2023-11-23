@@ -1,7 +1,7 @@
 package model
 
 type Log struct {
-	Model
+	BaseModel
 	Title   string `json:"title"`
 	Content string `json:"content"`
 }

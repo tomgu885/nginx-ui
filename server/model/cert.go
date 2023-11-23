@@ -1,7 +1,7 @@
 package model
 
 type Cert struct {
-	Model
+	BaseModel
 	SiteId       uint   `json:"site_id"`
 	Name         string `json:"name"`
 	Domains      string `json:"domains"`

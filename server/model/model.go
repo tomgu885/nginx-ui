@@ -27,7 +27,7 @@ var (
     rdb *redis.Client
 )
 
-type Model struct {
+type BaseModel struct {
     ID        uint                   `gorm:"primary_key" json:"id"`
     CreatedAt int64                  `json:"created_at" gorm:"autoCreateTime"`
     UpdatedAt int64                  `json:"updated_at" gorm:"autoUpdateTime"`
@@ -135,11 +135,11 @@ type Pagination struct {
 }
 
 type DataList struct {
-    Data       interface{} `json:"data"`
-    Pagination Pagination  `json:"pagination,omitempty"`
+    Data       any        `json:"data"`
+    Pagination Pagination `json:"pagination,omitempty"`
 }
 
-func GetListWithPagination(models interface{},
+func GetListWithPagination(models any,
     c *gin.Context, totalRecords int64) (result DataList) {
 
     page := cast.ToInt(c.Query("page"))

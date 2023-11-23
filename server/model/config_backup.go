@@ -7,7 +7,7 @@ import (
 )
 
 type ConfigBackup struct {
-	Model
+	BaseModel
 
 	Name     string `json:"name"`
 	FilePath string `json:"file_path"`
@@ -15,7 +15,7 @@ type ConfigBackup struct {
 }
 
 type ConfigBackupListItem struct {
-	Model
+	BaseModel
 
 	Name     string `json:"name"`
 	FilePath string `json:"file_path"`

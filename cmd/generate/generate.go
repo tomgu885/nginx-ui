@@ -2,15 +2,10 @@ package main
 
 import (
 	"flag"
-	"fmt"
-	"gorm.io/driver/sqlite"
 	"gorm.io/gen"
-	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 	"log"
+	"nginx-ui/pkg/settings"
 	"nginx-ui/server/model"
-	"nginx-ui/server/settings"
-	"path"
 )
 
 func main() {
@@ -40,20 +35,20 @@ func main() {
 	flag.Parse()
 
 	settings.Init(confPath)
-	dbPath := path.Join(path.Dir(settings.ConfPath), fmt.Sprintf("%s.db", settings.ServerSettings.Database))
+	//dbPath := path.Join(path.Dir(settings.ConfPath), fmt.Sprintf("%s.db", settings.ServerSettings.Database))
 
 	var err error
-	db, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{
-		Logger:                                   logger.Default.LogMode(logger.Info),
-		PrepareStmt:                              true,
-		DisableForeignKeyConstraintWhenMigrating: true,
-	})
+	//db, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{
+	//	Logger:                                   logger.Default.LogMode(logger.Info),
+	//	PrepareStmt:                              true,
+	//	DisableForeignKeyConstraintWhenMigrating: true,
+	//})
 
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	g.UseDB(db)
+	//g.UseDB(db)
 
 	// apply basic crud api on structs or table models which is specified by table name with function
 	// GenerateModel/GenerateModelAs. And generator will generate table models' code when calling Excute.

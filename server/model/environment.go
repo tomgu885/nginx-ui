@@ -6,7 +6,7 @@ import (
 )
 
 type Environment struct {
-	Model
+	BaseModel
 	Name          string `json:"name"`
 	URL           string `json:"url"`
 	Token         string `json:"token"`

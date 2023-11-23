@@ -115,8 +115,8 @@ CREATE TABLE sys_log (
     index(created_at)
 ) engine=innoDB default charset=utf8mb4;
 
-drop table if exists nodes;
-CREATE TABLE nodes (
+drop table if exists cdn_nodes;
+CREATE TABLE cdn_nodes (
     id int unsigned auto_increment primary key ,
     title varchar(20) not null default '' comment '名称',
     api_url varchar(200) not null default '' comment '',

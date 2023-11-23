@@ -8,7 +8,7 @@ import (
 )
 
 type Auth struct {
-	Model
+	BaseModel
 
 	Username          string `json:"name" gorm:"column:username;length:100"`
 	EncryptedPassword string `json:"-"`
