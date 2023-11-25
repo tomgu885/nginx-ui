@@ -51,6 +51,10 @@ func CreateCdnNode(c *gin.Context) {
     return
 }
 
+func UpdateCdnNode(c *gin.Context) {
+
+}
+
 // DeleteCdnNode
 // DELETE /api/cdn_nodes/:id
 func DeleteCdnNode(c *gin.Context) {

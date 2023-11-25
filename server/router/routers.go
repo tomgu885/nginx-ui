@@ -124,8 +124,10 @@ func InitRouter() *gin.Engine {
 
             // cdn_nodes
             g.GET("cdn_nodes", api.GetCdnNodes)
-            g.GET("cdn_nodes/:id", api.GetCdnNode)
-            g.DELETE()
+            g.GET("cdn_node/:id", api.GetCdnNode)
+            g.POST("cdn_node", api.CreateCdnNode)
+            g.POST("cdn_node/:id", api.UpdateCdnNode)
+            g.DELETE("cdn_node/:id", api.DeleteCdnNode)
 
             // Settings
             g.GET("settings", api.GetSettings)

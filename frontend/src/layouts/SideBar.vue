@@ -80,7 +80,6 @@ const visible: ComputedRef<sidebar[]> = computed(() => {
             v-model:openKeys="openKeys"
             v-model:selectedKeys="selectedKey"
         >
-
             <template v-for="sidebar in visible">
                 <a-menu-item v-if="sidebar.children.length===0 || sidebar.meta.hideChildren"
                              :key="sidebar.name"
@@ -88,6 +87,7 @@ const visible: ComputedRef<sidebar[]> = computed(() => {
                     <component :is="sidebar.meta.icon"/>
                     <span>{{ sidebar.name() }}</span>
                 </a-menu-item>
+
 
                 <a-sub-menu v-else :key="sidebar.path">
                     <template #title>

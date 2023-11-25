@@ -12,7 +12,8 @@ import {
     InfoCircleOutlined,
     SafetyCertificateOutlined,
     SettingOutlined,
-    UserOutlined
+    UserOutlined,
+    NodeIndexOutlined,
 } from '@ant-design/icons-vue'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
@@ -50,7 +51,7 @@ export const routes = [
                 },{
                     path:'add',
                     name:() => {return '添加'},
-                    component: () => import('@/views/sites/add'),
+                    component: () => import('@/views/sites/add.vue'),
                 }]
             },
             {
@@ -80,7 +81,7 @@ export const routes = [
             },
             {
                 path: 'config',
-                name: () => $gettext('Manage Configs'),
+                name: () => {return '配置管理'},
                 component: () => import('@/views/config/Config.vue'),
                 meta: {
                     icon: FileOutlined,
@@ -117,7 +118,7 @@ export const routes = [
             },
             {
                 path: 'terminal',
-                name: () => $gettext('Terminal'),
+                name: () => {return '终端'},
                 component: () => import('@/views/pty/Terminal.vue'),
                 meta: {
                     icon: CodeOutlined
@@ -171,6 +172,14 @@ export const routes = [
                 }
             },
             {
+                path: 'cdn_nodes',
+                name: () => {return 'cdn节点'},
+                component: () =>  import('@/views/cdn_nodes/list.vue'),
+                meta: {
+                    icon: NodeIndexOutlined
+                },
+            },
+            {
                 path: 'system',
                 name: () => $gettext('System'),
                 redirect: 'system/about',
@@ -187,14 +196,9 @@ export const routes = [
                     component: () => import('@/views/system/Upgrade.vue')
                 }]
             }
-        ]
+        ] // children of home
     },
-    {
-        path: '/install',
-        name: () => $gettext('Install'),
-        component: () => import('@/views/other/Install.vue'),
-        meta: {noAuth: true}
-    },
+
     {
         path: '/login',
         name: () => $gettext('Login'),
