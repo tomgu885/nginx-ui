@@ -10,6 +10,9 @@ func InitRouter() *gin.Engine {
     r := gin.New()
     r.Use(gin.Logger())
     r.Use(middleware.XRequestID())
+    r.GET("/", func(c *gin.Context) {
+        c.String(200, "nginx-bl tiny cdn manager")
+    })
     r.GET("/hello", func(c *gin.Context) {
         c.String(200, "world")
     })

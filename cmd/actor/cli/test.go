@@ -6,6 +6,14 @@ import (
     "nginx-ui/pkg/settings"
 )
 
+var hellCmd = &cobra.Command{
+    Use:   "hello",
+    Short: "just output hello",
+    Run: func(cmd *cobra.Command, args []string) {
+        fmt.Println("hello from cdn node")
+    },
+}
+
 var testCmd = &cobra.Command{
     Use:   "test",
     Short: "开发测试",

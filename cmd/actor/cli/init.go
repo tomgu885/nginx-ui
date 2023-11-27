@@ -20,18 +20,20 @@ var serveCmd = &cobra.Command{
     Use:   "serve",
     Short: "监听服务",
     RunE: func(cmd *cobra.Command, args []string) (err error) {
+        fmt.Println("start run serve")
         return router.InitRouter().Run(fmt.Sprintf(":%s", settings.NginxSettings.NodePort))
     },
 }
 
 func init() {
-    rootCmd.Flags().StringVarP(&configFile, "configFile", "c", "app.ini", "config file location")
+    rootCmd.Flags().StringVarP(&configFile, "configFile", "c", "node.ini", "config file location")
     rootCmd.AddCommand(serveCmd)
     rootCmd.AddCommand(restartCmd)
     rootCmd.AddCommand(reloadCmd)
     rootCmd.AddCommand(testCmd)
     rootCmd.AddCommand(configServerCmd)
     rootCmd.AddCommand(configCmd)
+    rootCmd.AddCommand(hellCmd)
 
 }
 

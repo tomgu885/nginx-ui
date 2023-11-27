@@ -1,0 +1,21 @@
+# cdn 节点文件
+# vim /lib/systemd/system/nginx-node.service
+[Unit]
+Description=A nginx manager and cdn configer
+Documentation=man:nginx(8)
+After=network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=/data/nginx-node
+Type=forking
+PIDFile=/run/cdn-node.pid
+ExecStart=/data/nginx-node/nginx-node serve
+TimeoutStopSec=5
+KillMode=mixed
+StandardOutput=/data/logs/nginx-node.log
+StandardError=/data/logs/nginx-node.log
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
