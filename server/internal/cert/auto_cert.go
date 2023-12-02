@@ -1,5 +1,0 @@
-package cert
-
-func AutoObtain() {
-
-}

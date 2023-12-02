@@ -2,6 +2,7 @@ package cli
 
 import (
     "fmt"
+    "github.com/gin-gonic/gin"
     "github.com/spf13/cobra"
     "nginx-ui/actor/router"
     "nginx-ui/pkg/settings"
@@ -13,6 +14,20 @@ var rootCmd = &cobra.Command{
     Short: "节点",
     PersistentPreRunE: func(cmd *cobra.Command, args []string) (err error) {
         return settings.Init(configFile)
+    },
+}
+
+var serverTestCmd = &cobra.Command{
+    Use:   "serve_test",
+    Short: "测试 ssl challenge",
+    Run: func(cmd *cobra.Command, args []string) {
+        r := gin.Default()
+
+        r.GET("/", func(c *gin.Context) {
+            c.String(200, "Hello from ssl challenge")
+        })
+
+        r.Run(":9180")
     },
 }
 
@@ -28,12 +43,15 @@ var serveCmd = &cobra.Command{
 func init() {
     rootCmd.Flags().StringVarP(&configFile, "configFile", "c", "node.ini", "config file location")
     rootCmd.AddCommand(serveCmd)
+    rootCmd.AddCommand(serverTestCmd)
     rootCmd.AddCommand(restartCmd)
     rootCmd.AddCommand(reloadCmd)
     rootCmd.AddCommand(testCmd)
     rootCmd.AddCommand(configServerCmd)
     rootCmd.AddCommand(configCmd)
     rootCmd.AddCommand(hellCmd)
+
+    rootCmd.AddCommand(IssueCertCmd)
 
 }
 

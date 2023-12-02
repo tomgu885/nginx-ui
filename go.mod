@@ -23,6 +23,7 @@ require (
 	github.com/jpillora/overseer v1.1.6
 	github.com/pkg/errors v0.9.1
 	github.com/pretty66/websocketproxy v0.0.0-20220507015215-930b3a686308
+	github.com/redis/go-redis/v9 v9.3.0
 	github.com/sashabaranov/go-openai v1.14.2
 	github.com/shirou/gopsutil/v3 v3.23.7
 	github.com/spf13/cast v1.5.1
@@ -33,7 +34,6 @@ require (
 	golang.org/x/crypto v0.13.0
 	gopkg.in/ini.v1 v1.67.0
 	gorm.io/driver/mysql v1.5.1
-	gorm.io/driver/sqlite v1.5.3
 	gorm.io/gen v0.3.23
 	gorm.io/gorm v1.25.4
 	gorm.io/plugin/dbresolver v1.4.7
@@ -149,7 +149,6 @@ require (
 	github.com/lufia/plan9stats v0.0.0-20230326075908-cb1d2100619a // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
-	github.com/mattn/go-sqlite3 v1.14.17 // indirect
 	github.com/miekg/dns v1.1.55 // indirect
 	github.com/mimuret/golang-iij-dpf v0.9.1 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
@@ -175,7 +174,6 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/power-devops/perfstat v0.0.0-20221212215047-62379fc7944b // indirect
 	github.com/pquerna/otp v1.4.0 // indirect
-	github.com/redis/go-redis/v9 v9.3.0 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/sacloud/api-client-go v0.2.9 // indirect
 	github.com/sacloud/go-http v0.1.7 // indirect
@@ -232,6 +230,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/datatypes v1.2.0 // indirect
+	gorm.io/driver/sqlite v1.5.3 // indirect
 	gorm.io/hints v1.1.2 // indirect
 	k8s.io/api v0.28.1 // indirect
 	k8s.io/apimachinery v0.28.1 // indirect

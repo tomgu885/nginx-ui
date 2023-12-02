@@ -11,7 +11,7 @@ func InitRouter() *gin.Engine {
     r.Use(gin.Logger())
     r.Use(middleware.XRequestID())
     r.GET("/", func(c *gin.Context) {
-        c.String(200, "nginx-bl tiny cdn manager")
+        c.String(200, "nginx-bl tiny cdn manager 3")
     })
     r.GET("/hello", func(c *gin.Context) {
         c.String(200, "world")
@@ -19,7 +19,8 @@ func InitRouter() *gin.Engine {
 
     r.GET("/status", api.NodeStatus)
 
-    r.POST("/update", api.Updates)
+    r.POST("/updates", api.Updates)
+    r.POST("")
 
     return r
 }
