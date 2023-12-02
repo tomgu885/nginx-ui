@@ -98,6 +98,24 @@ func CreateSite(c *gin.Context) {
     return
 }
 
+// POST /api/sites/:id/get_ssl
+func ObtainCert(c *gin.Context) {
+    id := cast.ToUint(c.Param("id"))
+
+    site, err := model.GetSiteById(id)
+    if err != nil {
+        logger.Errorf("failed to get site: %v", err)
+        helper.FailWithMessage("查询数据错误"+err.Error(), c)
+        return
+    }
+
+    if site.ID == 0 {
+        helper.FailWithMessage("没有找到该站点", c)
+        return
+    }
+
+}
+
 func SiteConfig(c *gin.Context) {
     siteId := c.Query("id")
 
@@ -110,8 +128,4 @@ func SiteConfig(c *gin.Context) {
     conf, err := services.ServerConfig(uint(id))
     c.String(200, conf)
     return
-}
-
-func UpdateSite(c *gin.Context) {
-
 }

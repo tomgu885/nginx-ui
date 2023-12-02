@@ -114,7 +114,7 @@ func ServerConfigDownloading(force bool) (siteUpdated uint, err error) {
 // http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache
 func DumpConfig(site model.Site, force bool) (updated bool, err error) {
     lastUpdate := site.UpdatedAt
-    fileName := settings.NginxConfigDir() + site.Name + ".conf"
+    fileName := settings.NginxConfigDir() + fmt.Sprintf("%d.conf", site.ID)
     lastModified := readLastModified(fileName)
     hasUpdated := lastUpdate > lastModified
     fmt.Printf("hasUpdate: %t, file:%d, db:%d\n", hasUpdated, lastModified, lastUpdate)

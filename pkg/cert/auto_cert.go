@@ -7,18 +7,20 @@ import (
     "github.com/go-acme/lego/v4/certificate"
     "github.com/go-acme/lego/v4/challenge/http01"
     "github.com/go-acme/lego/v4/lego"
+    "github.com/go-acme/lego/v4/registration"
     "nginx-ui/pkg/logger"
     "nginx-ui/pkg/settings"
 )
 
-func ObtainCert(domains []string) (privateBs, fullcert []byte, err error) {
-    privateKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+func ObtainCert(domains []string) (privateKey, fullchain []byte, err error) {
+    _privateKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
     if err != nil {
         return
     }
+    logger.Infof("settings.ServerSettings.Email: %s", settings.ServerSettings.Email)
     myUser := MyUser{
         Email: settings.ServerSettings.Email,
-        Key:   privateKey,
+        Key:   _privateKey,
     }
 
     config := lego.NewConfig(&myUser)
@@ -30,6 +32,12 @@ func ObtainCert(domains []string) (privateBs, fullcert []byte, err error) {
     client, err := lego.NewClient(config)
     if err != nil {
         logger.Errorf("lego.NewClient|fail to create lego client %v", err)
+        return
+    }
+
+    _, err = client.Registration.Register(registration.RegisterOptions{TermsOfServiceAgreed: true})
+    if err != nil {
+        logger.Errorf("failed to register", err.Error())
         return
     }
 
@@ -50,6 +58,9 @@ func ObtainCert(domains []string) (privateBs, fullcert []byte, err error) {
         return
     }
 
+    //fmt.Println("certificates", string(certificates.Certificate))
+    fullchain = certificates.Certificate
+    privateKey = certificates.PrivateKey
     return
 }
 

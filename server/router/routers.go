@@ -62,16 +62,16 @@ func InitRouter() *gin.Engine {
             g.DELETE("user/:id", api.DeleteUser)
 
             // Transform NgxConf to nginx configuration
-            g.POST("ngx/build_config", api.BuildNginxConfig)
+            //g.POST("ngx/build_config", api.BuildNginxConfig)
             // Tokenized nginx configuration to NgxConf
-            g.POST("ngx/tokenize_config", api.TokenizeNginxConfig)
+            //g.POST("ngx/tokenize_config", api.TokenizeNginxConfig)
             // Format nginx configuration code
-            g.POST("ngx/format_code", api.FormatNginxConfig)
+            //g.POST("ngx/format_code", api.FormatNginxConfig)
 
             g.POST("nginx/reload", api.ReloadNginx)
-            g.POST("nginx/restart", api.RestartNginx)
-            g.POST("nginx/test", api.TestNginx)
-            g.GET("nginx/status", api.NginxStatus)
+            //g.POST("nginx/restart", api.RestartNginx)
+            //g.POST("nginx/test", api.TestNginx)
+            //g.GET("nginx/status", api.NginxStatus)
 
             //g.POST("domain/:name/enable", api.EnableDomain)
             //g.POST("domain/:name/disable", api.DisableDomain)
@@ -135,13 +135,13 @@ func InitRouter() *gin.Engine {
             g.DELETE("settings/:id", api.DeleteSetting)
 
             // Upgrade
-            g.GET("upgrade/release", api.GetRelease)
-            g.GET("upgrade/current", api.GetCurrentVersion)
-            g.GET("upgrade/perform", api.PerformCoreUpgrade)
+            //g.GET("upgrade/release", api.GetRelease)
+            //g.GET("upgrade/current", api.GetCurrentVersion)
+            //g.GET("upgrade/perform", api.PerformCoreUpgrade)
 
             // ChatGPT
-            g.POST("chat_gpt", api.MakeChatCompletionRequest)
-            g.POST("chat_gpt_record", api.StoreChatGPTRecord)
+            //g.POST("chat_gpt", api.MakeChatCompletionRequest)
+            //g.POST("chat_gpt_record", api.StoreChatGPTRecord)
 
             // Environment
             //g.GET("environments", api.GetEnvironmentList)

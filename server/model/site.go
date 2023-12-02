@@ -79,7 +79,7 @@ type SiteUpdateReq struct {
     SiteCreateReq
 }
 
-func UpdateSiteById(id uint, site Site) (err error) {
+func UpdateSiteById(id uint, site any) (err error) {
     err = db.Model(&Site{}).Where("id", id).Updates(site).Error
     return
 }
