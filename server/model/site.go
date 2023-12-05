@@ -6,6 +6,7 @@ import (
     "github.com/pkg/errors"
     "gorm.io/gorm"
     "nginx-ui/pkg/logger"
+    "nginx-ui/pkg/settings"
     "nginx-ui/pkg/utils"
     "nginx-ui/pkg/validator"
     "strconv"
@@ -24,15 +25,17 @@ type Site struct {
     SslPrivateKey   string `json:"ssl_private_key"`   // ssl_private_key
     SslFullchainCer string `json:"ssl_fullchain_cer"` // ssl_fullchain_cer
     //SslState             int8   `json:"ssl_state"`         // ssl_state tinyint unsigned not null default '0' comment '申请进度'
-    SslObtainLog         string `json:"ssl_obtain_log"` // ssl_obtain_log text
-    SslExpiredAt         int64  `json:"ssl_expired_at"` // ssl_expired_at
-    HttpPorts            string `json:"http_ports"`
-    HttpsPorts           string `json:"https_ports"`
-    HttpRedirect         int8   `json:"http_redirect"`
+    SslObtainLog string `json:"ssl_obtain_log"` // ssl_obtain_log text
+    SslExpiredAt int64  `json:"ssl_expired_at"` // ssl_expired_at
+    HttpPorts    string `json:"http_ports"`
+    HttpsPorts   string `json:"https_ports"`
+    HttpRedirect int8   `json:"http_redirect"` // http 转 https(443) 1: 转发, 2: 不转发
+
     UpstreamPortPolicy   int8   `json:"upstream_port_policy"`   // 1: 同协议，同端口, 2: 回落到 http(80)
     UpstreamRotatePolicy int8   `json:"upstream_rotate_policy"` // 1: 轮询, 2: ip hash(暂时不实现)
     UpstreamIps          string `json:"upstream_ips"`
     UpstreamHost         string `json:"upstream_host"`
+    Redirect             string `json:"redirect"`
 
     //Path     string `json:"path"`
     //Advanced bool   `json:"advanced"`
@@ -47,8 +50,34 @@ const (
     SslCertStateFail    = 4 // 错误
 )
 
+func (s Site) SslOk() bool {
+    return s.SslEnable == StateEnable && s.SslCertState == SslCertStateOk
+}
+
+func (s Site) ConfigFile() string {
+    return settings.NginxConfigDir() + fmt.Sprintf("%d.conf", s.ID)
+}
+
+// ssl_certificate /etc/letsencrypt/live/ssl3.cloud2hk.com/fullchain.pem;
+func (s Site) FullchainFile() string {
+    return fmt.Sprintf("%s/%d_fullchain.pem", settings.NginxSettings.CertDir, s.ID)
+}
+
+func (s Site) PrivatePemFile() string {
+    return fmt.Sprintf("%s/%d_privkey.pem", settings.NginxSettings.CertDir, s.ID)
+}
+
+func (s Site) ServerDomains() string {
+    return strings.ReplaceAll(s.Domains, "\n", " ")
+}
+
+//func (s Site) ServerHttpPort() string {
+//    return
+//}
+
 var (
-    specialPorts = []int{110, 995}
+    // https://www.tecmint.com/common-network-ports/
+    specialPorts = []int{110, 111, 123, 137, 143, 161, 162, 445, 465, 631, 995}
 )
 
 func (Site) TableName() string {
@@ -79,6 +108,8 @@ type SiteUpdateReq struct {
     SiteCreateReq
 }
 
+// UpdateSiteById
+// site map[string]any 或者 Site 结构
 func UpdateSiteById(id uint, site any) (err error) {
     err = db.Model(&Site{}).Where("id", id).Updates(site).Error
     return
@@ -262,7 +293,7 @@ func GetSites(c *gin.Context, req SiteListReq) (data DataList, err error) {
         return
     }
 
-    data = GetListWithPagination(&sites, c, total)
+    data = GetListWithPagination(sites, c, total)
 
     return
 }

@@ -2,7 +2,7 @@ package services
 
 import (
     "fmt"
-    amodel "nginx-ui/actor/model"
+    model2 "nginx-ui/actor/model"
     "nginx-ui/pkg/logger"
     "nginx-ui/pkg/nginx"
     "nginx-ui/pkg/settings"
@@ -34,6 +34,7 @@ func ServerConfigReload(force, restart bool, requestId string) (err error) {
     restarted := false
     siteUpdated, err := ServerConfigDownloading(force)
     if err != nil {
+        logger.Errorf("failed to reload", err.Error())
         return
     }
     output := ""
@@ -52,7 +53,7 @@ func ServerConfigReload(force, restart bool, requestId string) (err error) {
     } else {
         output = "no site updates"
     }
-
+    logger.Info("repload finished!")
     report(requestId, output, siteUpdated, restarted)
     return
 }
@@ -83,26 +84,30 @@ func report(requestId, content string, siteUpdated uint, restarted bool) (err er
 }
 
 func ServerConfigDownloading(force bool) (siteUpdated uint, err error) {
-    url := settings.NginxSettings.MasterUrl + "/api/node/updates"
-
-    var result amodel.SitePageResult
+    url := settings.NginxSettings.MasterUrl + "/api/node/updates?per_page=9999"
+    logger.Infof("serverApi: %s", url)
+    var result model2.SitePageResult
     _, err = client.R().SetResult(&result).Get(url)
 
     if err != nil {
+        logger.Errorf("failed to get config from server: %v", err)
         return
     }
 
     //fmt.Printf("resp: %s\n", resp.Body())
-    fmt.Println("resultCode:", result.Code)
-    fmt.Println("sites count:", len(result.Data.List))
-    for _, row := range result.Data.List {
+    logger.Infof("pagination.total %d", result.Pagination.Total)
+    logger.Infof("resultCode: %d, sites count:%d", result.Code, len(result.Data))
+
+    for _, row := range result.Data {
+        logger.Infof("page")
+        //row := _row.(model.Site)
         hasUpdated, errW := DumpConfig(row, force)
         if errW != nil {
             logger.Errorf("writeFile: %s", errW)
             continue
         }
 
-        logger.Infof("write :%t", hasUpdated)
+        logger.Infof("row:%d write :%t", row.ID, hasUpdated)
         if hasUpdated {
             siteUpdated++
         }
@@ -111,10 +116,11 @@ func ServerConfigDownloading(force bool) (siteUpdated uint, err error) {
     return
 }
 
+// DumpConfig 输出nginx 代理配置
 // http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache
 func DumpConfig(site model.Site, force bool) (updated bool, err error) {
     lastUpdate := site.UpdatedAt
-    fileName := settings.NginxConfigDir() + fmt.Sprintf("%d.conf", site.ID)
+    fileName := site.ConfigFile() //settings.NginxConfigDir() + fmt.Sprintf("%d.conf", site.ID)
     lastModified := readLastModified(fileName)
     hasUpdated := lastUpdate > lastModified
     fmt.Printf("hasUpdate: %t, file:%d, db:%d\n", hasUpdated, lastModified, lastUpdate)
@@ -122,7 +128,22 @@ func DumpConfig(site model.Site, force bool) (updated bool, err error) {
         return false, nil
     }
 
-    fmt.Printf("filename %s\n", fileName)
+    if site.SslOk() {
+        privateFile := site.PrivatePemFile()
+        fileErr := os.WriteFile(privateFile, []byte(site.SslPrivateKey), os.ModePerm)
+        if fileErr != nil {
+            logger.Errorf("failed to write private file:%s, err:%v", privateFile, fileErr)
+            return false, fileErr
+        }
+
+        //fullchain.pem
+        fullFile := site.FullchainFile()
+        fileErr = os.WriteFile(fullFile, []byte(site.SslFullchainCer), os.ModePerm)
+        if fileErr != nil {
+            logger.Errorf("failed to write full file:%s, err:%v", fullFile, fileErr)
+            return false, fileErr
+        }
+    }
 
     proxy := nginx.NewNginxProxy(site)
     conf := proxy.BuildConfig()

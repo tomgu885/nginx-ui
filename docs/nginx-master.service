@@ -1,0 +1,20 @@
+# cdn 节点文件
+# vim /etc/systemd/system/nginx-master.service
+[Unit]
+Description=A nginx CDN master
+After=network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=/data/nginx-master
+Type=simple
+PIDFile=/run/cdn-master.pid
+ExecStart=/data/nginx-master/nginx-master
+TimeoutStopSec=5
+KillMode=mixed
+StandardOutput=append:/data/logs/nginx-master.log
+StandardError=append:/data/logs/nginx-master.log
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

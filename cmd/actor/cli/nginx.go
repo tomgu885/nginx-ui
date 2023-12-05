@@ -43,7 +43,13 @@ var configCmd = &cobra.Command{
     //
     //},
     RunE: func(cmd *cobra.Command, args []string) (err error) {
-        services.ServerConfigReload(true, false, "cmd")
+        logger.Info("config reload")
+        err = services.ServerConfigReload(true, false, "cmd")
+        if err != nil {
+            fmt.Println("config reload failed:", err.Error())
+            return
+        }
+        fmt.Println("config reloaded.")
         return
     },
 }

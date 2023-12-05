@@ -44,6 +44,7 @@ type Nginx struct {
     AccessLogPath string `json:"access_log_path"`
     ErrorLogPath  string `json:"error_log_path"`
     ConfigDir     string `json:"config_dir"`
+    CertDir       string `json:"cert_dir"`
     PIDPath       string `json:"pid_path"`
     ReloadCmd     string `json:"reload_cmd"`
     RestartCmd    string `json:"restart_cmd"`

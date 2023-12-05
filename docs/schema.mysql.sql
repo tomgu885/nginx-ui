@@ -64,6 +64,7 @@ create table sites (
     ssl_expired_at int unsigned not null default '0' comment 'ssl 过期时间',
     http_ports varchar(300) not null default '' comment 'http端口',
     http_redirect tinyint not null default '0' comment 'http 转 https(443) 1: 转发, 2: 不转发',
+    redirect varchar(200) not null default '' comment '跳转,',
     hsts_enable tinyint not null default '0' comment '1:启用, 2:禁用',
     https_ports varchar(300) not null default '' comment 'http',
     upstream_port_policy tinyint not null default '0' comment '1:同端口协议, 2: 回落到 80',
@@ -78,6 +79,7 @@ create table sites (
     index(deleted_at)
 ) engine=innoDB default charset=utf8mb4 comment '域名';
 -- CREATE INDEX `idx_sites_deleted_at` ON `sites`(`deleted_at`);
+-- alter table sites add column redirect varchar(200) not null default '' comment '跳转' after http_redirect;
 
 --
 -- CREATE TABLE `environments` (

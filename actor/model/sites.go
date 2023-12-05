@@ -16,11 +16,15 @@ type PageResult struct {
 }
 
 type SitePageResult struct {
-    Result
-    Data struct {
-        List  []model.Site `json:"list"`
-        Total uint         `json:"total"`
-    } `json:"data"`
+    Code int8
+    Data []model.Site `json:"data"`
+
+    Pagination struct {
+        Total       int64
+        PerPage     int64 `json:"per_page"`
+        CurrentPage int64 `json:"current_page"`
+        TotalPage   int64 `json:"total_page"`
+    }
 }
 
 type UpdateReq struct {

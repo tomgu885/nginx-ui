@@ -114,6 +114,13 @@ func ObtainCert(c *gin.Context) {
         return
     }
 
+    err = sslService.IssueCert(site)
+    if err != nil {
+        helper.FailWithMessage("申请证书失败", c)
+        return
+    }
+
+    helper.OkWithMessage("申请成功", c)
 }
 
 func SiteConfig(c *gin.Context) {

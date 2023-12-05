@@ -48,6 +48,7 @@ func InitRouter() *gin.Engine {
             w.GET("pty", api.Pty)
             // Nginx log
             w.GET("nginx_log", api.NginxLog)
+            w.GET("sys_log", api.GetSysLog)
         }
 
         g := root.Group("/", authRequired(), proxy())

@@ -34,18 +34,18 @@ type BaseModel struct {
     DeletedAt *soft_delete.DeletedAt `gorm:"column:deleted_at;default:0" json:"deleted_at"`
 }
 
-func GenerateAllModel() []any {
-    return []any{
-        ConfigBackup{},
-        Auth{},
-        AuthToken{},
-        Cert{},
-        ChatGPTLog{},
-        Site{},
-        DnsCredential{},
-        Environment{},
-    }
-}
+//func GenerateAllModel() []any {
+//    return []any{
+//        ConfigBackup{},
+//        Auth{},
+//        AuthToken{},
+//        Cert{},
+//        ChatGPTLog{},
+//        Site{},
+//        DnsCredential{},
+//        Environment{},
+//    }
+//}
 
 func logMode() gormlogger.Interface {
     switch settings.ServerSettings.RunMode {
@@ -135,11 +135,18 @@ type Pagination struct {
 }
 
 type DataList struct {
+    Code       int8
     Data       any        `json:"data"`
     Pagination Pagination `json:"pagination,omitempty"`
 }
 
-func GetListWithPagination(models any,
+type DataListDecode struct {
+    Code       int8
+    Data       []any      `json:"data"`
+    Pagination Pagination `json:"pagination,omitempty"`
+}
+
+func GetListWithPagination(rows any,
     c *gin.Context, totalRecords int64) (result DataList) {
 
     page := cast.ToInt(c.Query("page"))
@@ -149,7 +156,7 @@ func GetListWithPagination(models any,
 
     result = DataList{}
 
-    result.Data = models
+    result.Data = rows
 
     pageSize := settings.ServerSettings.PageSize
     reqPageSize := c.Query("page_size")

@@ -43,6 +43,5 @@ func (SslService) UpdateCert(site model.Site) (err error) {
 
 // https://networkbit.ch/golang-dns-lookup/
 func CheckDns(domain string) (ok bool, err error) {
-
     return true, nil
 }

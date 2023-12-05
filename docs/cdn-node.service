@@ -1,14 +1,14 @@
 # cdn 节点文件
-# vim /lib/systemd/system/nginx-node.service
+# vim /etc/systemd/system/nginx-node.service
 [Unit]
-Description=A nginx manager and cdn configer
+Description=A nginx node manage
 Documentation=man:nginx(8)
 After=network-online.target remote-fs.target nss-lookup.target
 Wants=network-online.target
 
 [Service]
 WorkingDirectory=/data/nginx-node
-Type=forking
+Type=simple
 PIDFile=/run/cdn-node.pid
 ExecStart=/data/nginx-node/nginx-node serve
 TimeoutStopSec=5
