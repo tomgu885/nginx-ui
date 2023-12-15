@@ -9,9 +9,10 @@ function add() {
 
 <template>
     <a-card title="添加">
-        <a @click="add"></a>
+        <a @click="add">1</a>
         <div class="domain-add-container">
-            <a-step></a-step>
+            <a-step>1</a-step>
+            <a-step>2</a-step>
         </div>
     </a-card>
 </template>

@@ -12,6 +12,13 @@ function bytesToSize(bytes: number) {
     return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i]
 }
 
+function state2str(state: number): string {
+    if (1 === state) {
+        return '是'
+    }
+    return '否'
+}
+
 function downloadCsv(header: any, data: any[], fileName: string) {
     if (!header || !Array.isArray(header) || !Array.isArray(data) || !header.length) {
         return
@@ -83,6 +90,7 @@ function stateFormat(st: number): string {
 
 export {
     bytesToSize,
+    state2str,
     downloadCsv,
     urlJoin,
     createEnum,

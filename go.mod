@@ -13,7 +13,6 @@ require (
 	github.com/gin-contrib/static v0.0.1
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-acme/lego/v4 v4.14.0
-	github.com/go-co-op/gocron v1.32.1
 	github.com/go-playground/validator/v10 v10.15.1
 	github.com/go-resty/resty/v2 v2.8.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
@@ -174,7 +173,6 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/power-devops/perfstat v0.0.0-20221212215047-62379fc7944b // indirect
 	github.com/pquerna/otp v1.4.0 // indirect
-	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/sacloud/api-client-go v0.2.9 // indirect
 	github.com/sacloud/go-http v0.1.7 // indirect
 	github.com/sacloud/iaas-api-go v1.11.1 // indirect

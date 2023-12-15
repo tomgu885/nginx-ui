@@ -3,7 +3,10 @@ import {h} from 'vue'
 import {Input, InputNumber, Textarea, Switch} from 'ant-design-vue'
 import StdSelector from './components/StdSelector.vue'
 import StdSelect from './components/StdSelect.vue'
+import StdRadio from './components/StdRadio.vue'
 import StdPassword from './components/StdPassword.vue'
+import placeholder from "lodash/fp/placeholder";
+import type { StdDesignEdit } from '@/components/StdDesign/types'
 
 interface IEdit {
     type: Function
@@ -48,9 +51,14 @@ function readonly(edit: IEdit, dataSource: any, dataIndex: any) {
     return h('p', fn(dataSource, dataIndex))
 }
 
-function input(edit: IEdit, dataSource: any, dataIndex: any) {
+function placeholder_helper(edit: StdDesignEdit) {
+    return typeof edit.config?.placeholder === 'function' ? edit.config?.placeholder() : edit.config?.placeholder
+}
+
+function input(edit: StdDesignEdit, dataSource: any, dataIndex: any) {
+
     return h(Input, {
-        placeholder: edit.placeholder?.() ?? '',
+        placeholder: placeholder_helper(edit),
         value: dataSource?.[dataIndex],
         'onUpdate:value': value => {
             dataSource[dataIndex] = value
@@ -58,9 +66,9 @@ function input(edit: IEdit, dataSource: any, dataIndex: any) {
     })
 }
 
-function inputNumber(edit: IEdit, dataSource: any, dataIndex: any) {
+function inputNumber(edit: StdDesignEdit, dataSource: any, dataIndex: any) {
     return h(InputNumber, {
-        placeholder: edit.placeholder?.() ?? '',
+        placeholder: placeholder_helper(edit),
         min: edit.min,
         max: edit.max,
         value: dataSource?.[dataIndex],
@@ -71,8 +79,13 @@ function inputNumber(edit: IEdit, dataSource: any, dataIndex: any) {
 }
 
 function textarea(edit: IEdit, dataSource: any, dataIndex: any) {
+    let plh = ''
+    if ('placeholder' in edit) {
+        plh = typeof edit.placeholder == 'string' ? edit.placeholder : edit.placeholder()
+    }
     return h(Textarea, {
-        placeholder: edit.placeholder?.() ?? '',
+        placeholder: plh,
+        rows: edit.rows? edit.rows:4,
         value: dataSource?.[dataIndex],
         'onUpdate:value': value => {
             dataSource[dataIndex] = value
@@ -85,6 +98,13 @@ function password(edit: IEdit, dataSource: any, dataIndex: any) {
         v-model:value={dataSource[dataIndex]}
         generate={edit.generate}
         placeholder={edit.placeholder}
+    />
+}
+
+function radio(edit: IEdit, dataSource: any, dataIndex: any) {
+    return <StdRadio
+        v-model:value={dataSource[dataIndex]}
+        mask={edit.mask}
     />
 }
 
@@ -111,7 +131,7 @@ function selector(edit: IEdit, dataSource: any, dataIndex: any) {
 }
 
 function antSwitch(edit: IEdit, dataSource: any, dataIndex: any) {
-    console.log('antSwitch Edit', edit.checkedValue);
+    // console.log('antSwitch Edit', edit.checkedValue);
     return h(Switch, {
         checkedValue: edit.checkedValue?? true,
         unCheckedValue: edit.unCheckedValue?? true,
@@ -126,6 +146,7 @@ export {
     readonly,
     input,
     textarea,
+    radio,
     select,
     selector,
     password,

@@ -2,39 +2,85 @@
 import StdTable from '@/components/StdDataDisplay/StdTable.vue'
 import {customRender, datetime} from '@/components/StdDataDisplay/StdTableTransformer'
 import {useGettext} from 'vue3-gettext'
+import {state2str} from '@/lib/helper/index'
 import sites from '@/api/sites'
 import {Badge, message} from 'ant-design-vue'
 import {h, ref} from 'vue';
 
 import StdCurd from '@/components/StdDataDisplay/StdCurd.vue'
-import {input, textarea, antSwitch} from '@/components/StdDataEntry'
+import {input, textarea, antSwitch, selector, select, radio} from '@/components/StdDataEntry'
 
 import SiteDuplicate from "@/views/domain/components/SiteDuplicate.vue";
 import {stateFormat} from "@/lib/helper";
 
 const {$gettext, interpolate} = useGettext()
 
-const columns =[{
-    title: () => {return '名称'},
-    help: () => {return 'help内容'},
-    dataIndex:'name',
-    sorter: false,
-    show: true,
-    pithy: true,
-    edit: {
-        // placeholder: () => {return '说明'},
-        // type: input,
-    },
-    search: true,
-},{
-    title:() => { return '域名'},
+const columns =[
+// {
+//     title: () => {return '名称'},
+//     help: () => {return 'help内容'},
+//     dataIndex:'name',
+//     sorter: false,
+//     show: true,
+//     pithy: true,
+//     edit: {
+//         // placeholder: () => {return '说明'},
+//         // type: input,
+//     },
+//     search: true,
+// },
+    {
+    title:  '域名',
     dataIndex:'domains',
     edit: {
-        placeholder: () => {return '多个域名以空格 或者换行隔开'},
+        placeholder:  '多个域名以空格 或者换行隔开',
         type: textarea,
+        rows: 3,
     },
     // search: true,
 },{
+    title:'源站',
+        dataIndex:'upstream_ips',
+        edit: {
+            type:textarea,
+            placeholder:'多个以换行分隔',
+            rows: 4,
+        }
+    },{
+    title: () => {return '回源策略'},
+    customRender: (args) => { // 1:同端口协议, 2: 回落到 80, 3: 回落到 443
+        console.log('args', args.record.upstream_port_policy)
+    },
+    dataIndex:'upstream_port_policy',
+    edit: {
+        type: radio,
+        mask:
+            {
+                1: '同端口协议',
+                2: '回落到http(80)',
+                3:'回落到https(443)'
+            }
+        ,
+        disable_search: true,
+    }
+},{
+    title:'回源host',
+    dataIndex:'upstream_host',
+},{
+    title:'源站',
+        dataIndex:'upstream_ips',
+
+    }
+,{
+    title: () => 'http端口',
+    dataIndex:'http_ports',
+    edit: {
+        placeholder: () => { return '多个端口以空格隔开'},
+        type: input,
+
+    }
+},
+{
     title: () => '启用https',
     dataIndex:'ssl_enable',
   customRender: (args) => {
@@ -61,14 +107,6 @@ const columns =[{
         unCheckedValue: 2,
     }
 },{
-  title: () => 'http端口',
-  dataIndex:'http_ports',
-    edit: {
-      placeholder: () => { return '多个端口以空格隔开'},
-      type: input,
-
-    }
-},{
   title: () => 'https端口',
   dataIndex:'https_ports',
     edit: {
@@ -76,6 +114,26 @@ const columns =[{
       type: input,
     },
 },{
+    title:() => 'websocket',
+    dataIndex:'websocket_enable',
+    customRender: (args) => {
+        return state2str(args.record.websocket_enable)
+    },
+    edit: {
+        type: antSwitch,
+        checkedValue: 1,
+        unCheckedValue: 2,
+    }
+},
+{
+    title: () => {return '跳转链接'},
+    dataIndex:'redirect',
+    edit:{
+        type: input,
+        placeholder: () => {return '当该项功能开启时，其它设置将失效'}
+    }
+},
+{
   title: '操作',
   dataIndex:'action'
 }
@@ -105,8 +163,8 @@ function handle_click_duplicate(name: string) {
     target.value = name
 }
 
-function add() {
-  console.log('add');
+function add(item) {
+  console.log('add', item);
 }
 
 const selectedRowKeys = ref([])

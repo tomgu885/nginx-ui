@@ -47,11 +47,11 @@ export const routes = [
                 children:[{
                     'path':'list',
                     name: () => {return 'CDN站点列表'},
-                    component:() => import('@/views/sites/list.vue'),
+                    component:() => import('@/views/sites/site_list.vue'),
                 },{
                     path:'add',
                     name:() => {return '添加'},
-                    component: () => import('@/views/sites/add.vue'),
+                    component: () => import('@/views/sites/site_add.vue'),
                 }]
             },
             {

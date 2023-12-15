@@ -20,7 +20,7 @@ export default defineComponent({
                 }
                 if (v.edit.type && show) {
                     template.push(
-                        <StdFormItem dataIndex={v.dataIndex} label={v.title()} extra={v.extra} error={props.error}>
+                        <StdFormItem dataIndex={v.dataIndex} label={(typeof  v.title == 'string')?v.title: v.title()} extra={v.extra} error={props.error}>
                             {v.edit.type(v.edit, props.dataSource, v.dataIndex)}
                         </StdFormItem>
                     )

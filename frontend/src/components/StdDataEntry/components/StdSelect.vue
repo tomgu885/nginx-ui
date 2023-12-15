@@ -10,7 +10,8 @@ const options = computed(() => {
 
     for (const [key, value] of Object.entries(props.mask)) {
         const v = value as any
-        _options.value!.push({label: v?.(), value: key})
+        const l = typeof  v == 'string' ?v : v?.()
+        _options.value!.push({label: l, value: key})
     }
 
     return _options

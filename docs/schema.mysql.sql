@@ -67,7 +67,7 @@ create table sites (
     redirect varchar(200) not null default '' comment '跳转,',
     hsts_enable tinyint not null default '0' comment '1:启用, 2:禁用',
     https_ports varchar(300) not null default '' comment 'http',
-    upstream_port_policy tinyint not null default '0' comment '1:同端口协议, 2: 回落到 80',
+    upstream_port_policy tinyint not null default '0' comment '1:同端口协议, 2: 回落到 80, 3: 回落到 443',
     upstream_rotate_policy tinyint not null default '0' comment '1: 轮询(robin round, 2: ip hash',
     upstream_ips varchar(100) not null default '' comment '上游ip,多个以逗号分隔,会轮询',
     upstream_host varchar(100) not null default '' comment '是否',
